@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Federico Reviati — Progettista Meccanico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #F8F8F8;
+      --bg-2:        #EFEFEF;
+      --border:      #DCDCDC;
+      --ink:         #111111;
+      --ink-2:       #444444;
+      --ink-3:       #888888;
+      --ink-4:       #BBBBBB;
+      --tag-bg:      #EBEBEB;
+      --tag-hover:   #222222;
+      --tag-hover-c: #FFFFFF;
+      --green:       #4A8C5C;
+      --toggle-bg:   #CCCCCC;
+      --toggle-on:   #555555;
+    }
+
+    [data-theme="dark"] {
+      --bg:          #111111;
+      --bg-2:        #1A1A1A;
+      --border:      #2C2C2C;
+      --ink:         #F0F0F0;
+      --ink-2:       #BBBBBB;
+      --ink-3:       #777777;
+      --ink-4:       #444444;
+      --tag-bg:      #222222;
+      --tag-hover:   #E0E0E0;
+      --tag-hover-c: #111111;
+      --green:       #5AAF73;
+      --toggle-bg:   #555555;
+      --toggle-on:   #AAAAAA;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .page {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0s;
+    }
+
+    .lang-switch {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.12em;
+      padding: 0.28rem 0.65rem;
+      color: var(--ink-3);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .lang-btn.active {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .lang-btn:not(.active):hover {
+      background: var(--tag-bg);
+      color: var(--ink);
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .theme-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+
+    .toggle-track {
+      width: 34px;
+      height: 18px;
+      background: var(--toggle-bg);
+      border-radius: 9px;
+      position: relative;
+      transition: background 0.25s;
+      flex-shrink: 0;
+    }
+
+    .toggle-track::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--bg);
+      transition: transform 0.25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+
+    [data-theme="dark"] .toggle-track { background: var(--toggle-on); }
+    [data-theme="dark"] .toggle-track::after { transform: translateX(16px); }
+
+    /* ── HEADER ── */
+    header {
+      padding: 3rem 0 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 2rem;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.1s;
+    }
+
+    .label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+    }
+
+    h1 strong { font-weight: 500; }
+
+    .title-role {
+      margin-top: 0.9rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+
+    .photo {
+      width: 108px;
+      height: 138px;
+      border: 1px solid var(--border);
+      background: var(--bg-2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .photo svg { opacity: 0.25; }
+
+    .photo span {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-4);
+    }
+
+    /* ── META BAR ── */
+    .meta-bar {
+      display: flex;
+      gap: 2rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.2s;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.67rem;
+      color: var(--ink-3);
+      letter-spacing: 0.04em;
+    }
+
+    .meta-item svg { opacity: 0.45; flex-shrink: 0; }
+
+    /* ── MAIN GRID ── */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 270px;
+      padding: 3rem 0;
+    }
+
+    .col-main {
+      padding-right: 3rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .col-side { padding-left: 2.5rem; }
+
+    /* ── SECTIONS ── */
+    section {
+      margin-bottom: 2.8rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+    section:nth-child(1) { animation-delay: 0.3s; }
+    section:nth-child(2) { animation-delay: 0.4s; }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .bio {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ink-2);
+    }
+
+    .bio strong { font-weight: 500; color: var(--ink); }
+
+    /* ── EXP ── */
+    .exp-item {
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .exp-company { font-size: 0.95rem; font-weight: 500; color: var(--ink); }
+
+    .exp-years {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--ink-4);
+      white-space: nowrap;
+    }
+
+    .exp-role {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 0.55rem;
+    }
+
+    .exp-desc {
+      font-size: 0.82rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink-3);
+    }
+
+    /* ── SIDE ── */
+    .side-section {
+      margin-bottom: 2.2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .side-section:nth-child(1) { animation-delay: 0.35s; }
+    .side-section:nth-child(2) { animation-delay: 0.45s; }
+    .side-section:nth-child(3) { animation-delay: 0.55s; }
+    .side-section:nth-child(4) { animation-delay: 0.65s; }
+    .side-section:nth-child(5) { animation-delay: 0.72s; }
+    .side-section:nth-child(6) { animation-delay: 0.78s; }
+    .side-section:nth-child(7) { animation-delay: 0.85s; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+    .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.04em;
+      padding: 0.28rem 0.55rem;
+      border: 1px solid var(--border);
+      background: var(--tag-bg);
+      color: var(--ink-3);
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      cursor: default;
+    }
+
+    .tag:hover, .tag.hi {
+      background: var(--tag-hover);
+      color: var(--tag-hover-c);
+      border-color: var(--tag-hover);
+    }
+
+    .contact-list { display: flex; flex-direction: column; }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--ink-3);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.15s;
+    }
+    .contact-link:last-child { border-bottom: none; }
+    .contact-link:hover { color: var(--ink); }
+    .contact-link svg { opacity: 0.4; flex-shrink: 0; transition: opacity 0.15s; }
+    .contact-link:hover svg { opacity: 1; }
+
+    .availability {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border);
+      background: var(--bg-2);
+    }
+
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    .info-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.78rem;
+    }
+    .info-line:last-child { border-bottom: none; }
+    .info-line span:first-child { color: var(--ink-2); }
+    .info-line span:last-child {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-4);
+    }
+
+    /* Side projects placeholder */
+    .sp-banner {
+      border: 1px dashed var(--border);
+      padding: 0.9rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .sp-banner svg { opacity: 0.3; flex-shrink: 0; margin-top: 2px; }
+
+    .sp-text {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-4);
+      line-height: 1.6;
+    }
+
+    .sp-text strong {
+      display: block;
+      color: var(--ink-3);
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 0.25rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 1.5rem 0 3rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 1s;
+    }
+
+    .footer-copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+      text-transform: uppercase;
+    }
+
+    .footer-motto {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      font-style: italic;
+      color: var(--ink-4);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      header { grid-template-columns: 1fr; }
+      .photo { display: none; }
+      .main-grid { grid-template-columns: 1fr; }
+      .col-main { padding-right: 0; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 2.5rem; margin-bottom: 2.5rem; }
+      .col-side { padding-left: 0; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="lang-switch" role="group" aria-label="Lingua / Language">
+      <button class="lang-btn active" id="btn-it" onclick="setLang('it')">IT</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <label class="theme-toggle" aria-label="Dark mode">
+      <span class="theme-label i" data-l="it">Tema scuro</span>
+      <span class="theme-label i" data-l="en" style="display:none">Dark mode</span>
+      <div class="toggle-track" id="themeTrack" role="switch" tabindex="0"
+           onclick="toggleTheme()" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTheme()"></div>
+    </label>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div>
+      <p class="label">Portfolio · 2026</p>
+      <h1><strong>Federico</strong><br>Reviati</h1>
+      <p class="title-role">
+        <span class="i" data-l="it">Progettista Meccanico — Libero Professionista</span>
+        <span class="i" data-l="en" style="display:none">Mechanical Designer — Freelance</span>
+      </p>
+    </div>
+    <div class="photo" aria-hidden="true">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span>Photo</span>
+    </div>
+  </header>
+
+  <!-- META BAR -->
+  <div class="meta-bar">
+    <div class="meta-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Parma, Italia
+    </div>
+    <div class="meta-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      <span class="i" data-l="it">15+ anni di esperienza</span>
+      <span class="i" data-l="en" style="display:none">15+ years of experience</span>
+    </div>
+    <div class="meta-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="i" data-l="it">Freelance dal 2026</span>
+      <span class="i" data-l="en" style="display:none">Freelance since 2026</span>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+    <div class="col-main">
+
+      <section>
+        <p class="section-label">
+          <span class="i" data-l="it">Profilo</span>
+          <span class="i" data-l="en" style="display:none">Profile</span>
+        </p>
+        <p class="bio i" data-l="it">
+          Progetto <strong>macchine automatiche</strong> e componenti in plastica stampata da oltre quindici anni.
+          Specializzato in <strong>modellazione 3D parametrica</strong> di solidi e superfici, dopo esperienze strutturate
+          in ambito farmaceutico e medicale dal 2026 lavoro in proprio, collaborando con aziende e studi tecnici
+          dalla fase di concept fino alla messa in tavola costruttiva.
+        </p>
+        <p class="bio i" data-l="en" style="display:none">
+          I design <strong>automated machinery</strong> and injection-moulded plastic components with over fifteen years of experience.
+          Specialised in <strong>parametric 3D modelling</strong> of solids and surfaces, after structured roles in pharmaceutical and medical environments
+          I went freelance in 2026, supporting companies and technical studios from concept through to production drawings.
+        </p>
+      </section>
+
+      <section>
+        <p class="section-label">
+          <span class="i" data-l="it">Esperienze</span>
+          <span class="i" data-l="en" style="display:none">Experience</span>
+        </p>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-company">Antares Vision spa</span>
+            <span class="exp-years">2016 – 2025</span>
+          </div>
+          <p class="exp-role">
+            <span class="i" data-l="it">Progettista Meccanico &amp; Project Leader</span>
+            <span class="i" data-l="en" style="display:none">Mechanical Designer &amp; Project Leader</span>
+          </p>
+          <p class="exp-desc i" data-l="it">
+            Progettazione di macchine per il settore farmaceutico con responsabilità crescenti fino al ruolo di Project Leader.
+            Redesign pinze di presa in tecnopolimero (riduzione costi e tempi produttivi), progettazione carosello per ispezione cosmetica
+            con sistema a camma (co-autore brevetto <em>WO2023007412A1</em>), key user nel passaggio PDM → PLM Teamcenter.
+          </p>
+          <p class="exp-desc i" data-l="en" style="display:none">
+            Design of pharmaceutical machinery with increasing responsibilities up to Project Leader.
+            Redesigned grippers in technopolymer (cost and lead-time reduction), designed a cosmetic inspection carousel
+            with cam-driven rotation (co-author of patent <em>WO2023007412A1</em>), key user for PDM → PLM Teamcenter migration.
+          </p>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-company">Spencer Italia srl</span>
+            <span class="exp-years">2010 – 2016</span>
+          </div>
+          <p class="exp-role">
+            <span class="i" data-l="it">Progettista Meccanico</span>
+            <span class="i" data-l="en" style="display:none">Mechanical Designer</span>
+          </p>
+          <p class="exp-desc i" data-l="it">
+            Sviluppo di dispositivi medicali ed elettromedicali con focus sulla modellazione di superfici per componenti stampati.
+            Responsabile di simulazioni FEM e testing sui prodotti finiti.
+          </p>
+          <p class="exp-desc i" data-l="en" style="display:none">
+            Development of medical and electro-medical devices with a focus on surface modelling for moulded components.
+            Responsible for FEM simulations and final product testing.
+          </p>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-company">STL Engineering</span>
+            <span class="exp-years">2008 – 2010</span>
+          </div>
+          <p class="exp-role">
+            <span class="i" data-l="it">Disegnatore Meccanico</span>
+            <span class="i" data-l="en" style="display:none">Mechanical Draughtsman</span>
+          </p>
+          <p class="exp-desc i" data-l="it">
+            Supporto tecnico presso clienti nella produzione di macchine automatiche per il settore alimentare e il riempimento farmaceutico.
+          </p>
+          <p class="exp-desc i" data-l="en" style="display:none">
+            Technical support at client sites producing automated machinery for food processing and pharmaceutical filling.
+          </p>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="exp-company">Camattini Meccanica <span style="font-weight:300;font-size:0.85em">(ora Dallara)</span></span>
+            <span class="exp-years">2007 – 2008</span>
+          </div>
+          <p class="exp-role">
+            <span class="i" data-l="it">Operatore CNC &amp; Programmatore CAM</span>
+            <span class="i" data-l="en" style="display:none">CNC Operator &amp; CAM Programmer</span>
+          </p>
+          <p class="exp-desc i" data-l="it">
+            Lavorazioni CNC 5 assi su modelli in resina e telai in fibra di carbonio per automotive e difesa. Programmazione CAM 3 assi.
+          </p>
+          <p class="exp-desc i" data-l="en" style="display:none">
+            5-axis CNC machining on resin models and carbon-fibre frames for automotive and defence sectors. 3-axis CAM programming.
+          </p>
+        </div>
+
+      </section>
+    </div>
+
+    <!-- SIDE -->
+    <div class="col-side">
+
+      <div class="side-section">
+        <div class="availability">
+          <span class="dot"></span>
+          <span class="i" data-l="it">Disponibile per collaborazioni</span>
+          <span class="i" data-l="en" style="display:none">Available for projects</span>
+        </div>
+      </div>
+
+      <div class="side-section">
+        <p class="section-label">
+          <span class="i" data-l="it">Contatti</span>
+          <span class="i" data-l="en" style="display:none">Contact</span>
+        </p>
+        <div class="contact-list">
+          <a href="mailto:federico@reviati.com" class="contact-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            federico@reviati.com
+          </a>
+          <a href="tel:+393463941321" class="contact-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l.95-.96a2 2 0 0 1 2.11-.45c.908.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +39 346 394 1321
+          </a>
+          <a href="https://www.linkedin.com/in/federicoreviati" target="_blank" rel="noopener" class="contact-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <div class="side-section">
+        <p class="section-label">
+          <span class="i" data-l="it">Software CAD / PLM</span>
+          <span class="i" data-l="en" style="display:none">CAD / PLM Software</span>
+        </p>
+        <div class="tag-list">
+          <span class="tag hi">Solid Edge</span>
+          <span class="tag hi">SolidWorks</span>
+          <span class="tag">AutoCAD</span>
+          <span class="tag">CATIA V5 (GSD)</span>
+          <span class="tag">ME10</span>
+          <span class="tag">TeamCenter PLM</span>
+        </div>
+      </div>
+
+      <div class="side-section">
+        <p class="section-label">
+          <span class="i" data-l="it">Competenze</span>
+          <span class="i" data-l="en" style="display:none">Skills</span>
+        </p>
+        <div class="tag-list">
+          <span class="tag i" data-l="it">Macchine automatiche</span>
+          <span class="tag i" data-l="en" style="display:none">Automated machinery</span>
+          <span class="tag i" data-l="it">Stampaggio a iniezione</span>
+          <span class="tag i" data-l="en" style="display:none">Injection moulding</span>
+          <span class="tag i" data-l="it">Modellazione 3D parametrica</span>
+          <span class="tag i" data-l="en" style="display:none">Parametric 3D modelling</span>
+          <span class="tag">FEM</span>
+          <span class="tag i" data-l="it">Settore farmaceutico</span>
+          <span class="tag i" data-l="en" style="display:none">Pharmaceutical</span>
+          <span class="tag i" data-l="it">Dispositivi medicali</span>
+          <span class="tag i" data-l="en" style="display:none">Medical devices</span>
+          <span class="tag i" data-l="it">Brevettistica</span>
+          <span class="tag i" data-l="en" style="display:none">Patent writing</span>
+        </div>
+      </div>
+
+      <div class="side-section">
+        <p class="section-label">
+          <span class="i" data-l="it">Formazione</span>
+          <span class="i" data-l="en" style="display:none">Education</span>
+        </p>
+        <div class="info-line">
+          <span>
+            <span class="i" data-l="it">Perito Meccanico</span>
+            <span class="i" data-l="en" style="display:none">Mechanical Technician</span>
+          </span>
+          <span>77/100</span>
+        </div>
+        <div class="info-line">
+          <span style="font-size:0.68rem; color: var(--ink-4)">ITIS L. da Vinci, Parma</span>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="side-section">
+        <p class="section-label">
+          <span class="i" data-l="it">Lingue</span>
+          <span class="i" data-l="en" style="display:none">Languages</span>
+        </p>
+        <div class="info-line">
+          <span class="i" data-l="it">Italiano</span>
+          <span class="i" data-l="en" style="display:none">Italian</span>
+          <span class="i" data-l="it">Madrelingua</span>
+          <span class="i" data-l="en" style="display:none">Native</span>
+        </div>
+        <div class="info-line">
+          <span class="i" data-l="it">Inglese</span>
+          <span class="i" data-l="en" style="display:none">English</span>
+          <span>B2</span>
+        </div>
+      </div>
+
+      <div class="side-section">
+        <p class="section-label">Side Projects</p>
+        <div class="sp-banner">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          <div class="sp-text">
+            <strong class="i" data-l="it">In arrivo</strong>
+            <strong class="i" data-l="en" style="display:none">Coming soon</strong>
+            <span class="i" data-l="it">Script pycatia, file STL e altri progetti open su GitHub</span>
+            <span class="i" data-l="en" style="display:none">pycatia scripts, STL files and open projects on GitHub</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-copy">© 2026 Federico Reviati</span>
+    <span class="footer-motto i" data-l="it">Dal concept alla tavola costruttiva.</span>
+    <span class="footer-motto i" data-l="en" style="display:none">From concept to production drawing.</span>
+  </footer>
+
+</div>
+
+<script>
+  // Language
+  function setLang(lang) {
+    document.querySelectorAll('.i[data-l]').forEach(el => {
+      el.style.display = el.dataset.l === lang ? '' : 'none';
+    });
+    document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang;
+    localStorage.setItem('lang', lang);
+  }
+
+  // Theme
+  function toggleTheme() {
+    const html = document.documentElement;
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+
+  // Restore preferences
+  (function() {
+    const t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+    const l = localStorage.getItem('lang');
+    if (l && l !== 'it') setLang(l);
+  })();
+</script>
+</body>
+</html>
