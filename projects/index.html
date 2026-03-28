@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Progetti — Federico Reviati</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #F8F8F8;
+      --bg-2:        #EFEFEF;
+      --border:      #DCDCDC;
+      --ink:         #111111;
+      --ink-2:       #444444;
+      --ink-3:       #888888;
+      --ink-4:       #BBBBBB;
+      --tag-bg:      #EBEBEB;
+      --tag-hover:   #222222;
+      --tag-hover-c: #FFFFFF;
+      --toggle-bg:   #CCCCCC;
+      --toggle-on:   #555555;
+    }
+
+    [data-theme="dark"] {
+      --bg:          #111111;
+      --bg-2:        #1A1A1A;
+      --border:      #2C2C2C;
+      --ink:         #F0F0F0;
+      --ink-2:       #BBBBBB;
+      --ink-3:       #777777;
+      --ink-4:       #444444;
+      --tag-bg:      #222222;
+      --tag-hover:   #E0E0E0;
+      --tag-hover-c: #111111;
+      --toggle-bg:   #555555;
+      --toggle-on:   #AAAAAA;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .page { max-width: 920px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--ink); }
+    .back-link svg { opacity: 0.5; transition: opacity 0.15s; }
+    .back-link:hover svg { opacity: 1; }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .lang-switch {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.12em;
+      padding: 0.28rem 0.65rem;
+      color: var(--ink-3);
+      transition: background 0.15s, color 0.15s;
+    }
+    .lang-btn.active { background: var(--ink); color: var(--bg); }
+    .lang-btn:not(.active):hover { background: var(--tag-bg); color: var(--ink); }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .theme-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+
+    .toggle-track {
+      width: 34px; height: 18px;
+      background: var(--toggle-bg);
+      border-radius: 9px;
+      position: relative;
+      transition: background 0.25s;
+      flex-shrink: 0;
+    }
+    .toggle-track::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--bg);
+      transition: transform 0.25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+    [data-theme="dark"] .toggle-track { background: var(--toggle-on); }
+    [data-theme="dark"] .toggle-track::after { transform: translateX(16px); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 3rem 0 2.5rem;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.1s;
+    }
+
+    .label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    h1 strong { font-weight: 500; }
+
+    .page-desc {
+      margin-top: 0.9rem;
+      font-size: 0.9rem;
+      color: var(--ink-3);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    /* ── PROJECT GRID ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      margin: 3rem 0;
+      border: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.25s;
+    }
+
+    /* ── PROJECT CARD ── */
+    .project-card {
+      background: var(--bg);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.15s;
+    }
+
+    .project-card:hover { background: var(--bg-2); }
+
+    .card-image {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .project-card:hover .card-image img { transform: scale(1.03); }
+
+    .card-image-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card-image-placeholder svg { opacity: 0.2; }
+    .card-image-placeholder span {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-4);
+    }
+
+    .card-body { padding: 1.25rem 1.25rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-year {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+    }
+
+    .card-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+
+    .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.45rem;
+      border: 1px solid var(--border);
+      background: var(--tag-bg);
+      color: var(--ink-3);
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-top: 0.25rem;
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink-3);
+      flex: 1;
+    }
+
+    .card-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-4);
+      margin-top: 0.75rem;
+      transition: color 0.15s;
+    }
+    .project-card:hover .card-arrow { color: var(--ink); }
+    .card-arrow svg { transition: transform 0.2s; }
+    .project-card:hover .card-arrow svg { transform: translateX(3px); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 1.5rem 0 3rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.5s;
+    }
+
+    .footer-copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-4);
+      text-transform: uppercase;
+    }
+
+    .footer-motto {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      font-style: italic;
+      color: var(--ink-4);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <a href="../" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="15 18 9 12 15 6"/></svg>
+      <span class="i" data-l="it">Federico Reviati</span>
+      <span class="i" data-l="en" style="display:none">Federico Reviati</span>
+    </a>
+    <div class="topbar-right">
+      <div class="lang-switch">
+        <button class="lang-btn active" id="btn-it" onclick="setLang('it')">IT</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+      <label class="theme-toggle">
+        <span class="theme-label i" data-l="it">Tema scuro</span>
+        <span class="theme-label i" data-l="en" style="display:none">Dark mode</span>
+        <div class="toggle-track" onclick="toggleTheme()" tabindex="0"
+             onkeydown="if(event.key==='Enter'||event.key===' ')toggleTheme()"></div>
+      </label>
+    </div>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <p class="label">Federico Reviati · Progetti</p>
+    <h1>
+      <span class="i" data-l="it"><strong>Progetti</strong> &amp; Case Studies</span>
+      <span class="i" data-l="en" style="display:none"><strong>Projects</strong> &amp; Case Studies</span>
+    </h1>
+    <p class="page-desc i" data-l="it">
+      Una selezione di progetti sviluppati nel corso della mia carriera: dalla progettazione di sistemi meccanici complessi
+      alla modellazione di componenti per stampaggio, fino a script e utilità per l'automazione del lavoro CAD.
+    </p>
+    <p class="page-desc i" data-l="en" style="display:none">
+      A selection of projects from my career: from complex mechanical system design
+      to moulded component modelling and CAD automation scripts.
+    </p>
+  </div>
+
+  <!-- PROJECTS GRID -->
+  <div class="projects-grid">
+
+    <!-- ═══════════════════════════════════════════════
+         CARD PROGETTO — duplica questo blocco per ogni progetto
+         Sostituisci: href, immagine, anno, tag, titolo, descrizione
+         ═══════════════════════════════════════════════ -->
+    <a href="nome-progetto/" class="project-card">
+      <div class="card-image">
+        <!-- OPZIONE A: con immagine -->
+        <!-- <img src="../projects/nome-progetto/cover.jpg" alt="Nome progetto"> -->
+
+        <!-- OPZIONE B: placeholder (rimuovi quando hai l'immagine) -->
+        <div class="card-image-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>Immagine</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-year">2023</span><!-- Anno del progetto -->
+          <div class="card-tags">
+            <span class="tag">Solid Edge</span><!-- Tag tecnologie usate -->
+            <span class="tag">Brevetto</span>
+          </div>
+        </div>
+        <p class="card-title i" data-l="it">Titolo del progetto</p>
+        <p class="card-title i" data-l="en" style="display:none">Project title</p>
+        <p class="card-desc i" data-l="it">
+          Breve descrizione del progetto — due o tre righe che spiegano il problema affrontato
+          e l'approccio utilizzato.
+        </p>
+        <p class="card-desc i" data-l="en" style="display:none">
+          Short project description — two or three lines explaining the problem
+          and the approach taken.
+        </p>
+        <div class="card-arrow">
+          <span class="i" data-l="it">Leggi</span>
+          <span class="i" data-l="en" style="display:none">Read</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </div>
+    </a>
+    <!-- ═══════════════════════════════════════════════
+         Fine card — aggiungi altre card qui sotto
+         ═══════════════════════════════════════════════ -->
+
+  </div>
+
+  <footer>
+    <span class="footer-copy">© 2026 Federico Reviati</span>
+    <span class="footer-motto i" data-l="it">Dal concept alla tavola costruttiva.</span>
+    <span class="footer-motto i" data-l="en" style="display:none">From concept to production drawing.</span>
+  </footer>
+
+</div>
+<script>
+  function setLang(lang) {
+    document.querySelectorAll('.i[data-l]').forEach(el => {
+      el.style.display = el.dataset.l === lang ? '' : 'none';
+    });
+    document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang;
+    localStorage.setItem('lang', lang);
+  }
+  function toggleTheme() {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+  (function() {
+    const t = localStorage.getItem('theme'); if (t) document.documentElement.setAttribute('data-theme', t);
+    const l = localStorage.getItem('lang'); if (l && l !== 'it') setLang(l);
+  })();
+</script>
+</body>
+</html>
