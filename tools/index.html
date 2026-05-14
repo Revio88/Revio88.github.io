@@ -327,10 +327,8 @@
           <span class="tag"><span class="i" data-l="it">Accoppiamenti</span><span class="i" data-l="en" style="display:none">Fits</span></span>
         </div>
       </div>
-      <div>
-        <button class="open-btn" onclick="openTool('iso-fit')">
-          <span class="i" data-l="it">Apri</span><span class="i" data-l="en" style="display:none">Open</span>
-        </button>
+      <div class="tool-action">
+        <button class="open-btn" onclick="openTool('iso-fit')" data-it="Apri" data-en="Open">Apri</button>
       </div>
     </div>
 
@@ -571,7 +569,6 @@ function calcIso(lang) {
     l1.textContent=_('Gioco massimo','Max clearance');v1.textContent=(Gx*1000).toFixed(1)+' µm';
     l2.textContent=_('Interferenza massima','Max interference');v2.textContent=(-Gn*1000).toFixed(1)+' µm';
   }
-  const su=(v>=0?'+':'')+v.toFixed(1)+' µm';
   document.getElementById('t-devtb').innerHTML=
     `<tr><td>${_('Foro','Hole')} ${fS}</td><td>${fD.l}${fD.q}</td><td>${((fv.u>=0?'+':'')+fv.u.toFixed(1))+' µm'}</td><td>${((fv.lo>=0?'+':'')+fv.lo.toFixed(1))+' µm'}</td></tr>
      <tr><td>${_('Albero','Shaft')} ${aS}</td><td>${aD.l}${aD.q}</td><td>${((av.u>=0?'+':'')+av.u.toFixed(1))+' µm'}</td><td>${((av.lo>=0?'+':'')+av.lo.toFixed(1))+' µm'}</td></tr>`;
