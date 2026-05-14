@@ -13,7 +13,7 @@
 	</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nome Progetto — Federico Reviati</title><!-- MODIFICA: titolo progetto -->
+  <title>Change parts configurator — Federico Reviati</title><!-- MODIFICA: titolo progetto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -26,11 +26,12 @@
       --border:      #DCDCDC;
       --ink:         #111111;
       --ink-2:       #444444;
-      --ink-3:       #888888;
+      --ink-3:       #555555;
       --ink-4:       #BBBBBB;
       --tag-bg:      #EBEBEB;
       --tag-hover:   #222222;
       --tag-hover-c: #FFFFFF;
+      --green:       #4A8C5C;
       --toggle-bg:   #CCCCCC;
       --toggle-on:   #555555;
     }
@@ -40,12 +41,13 @@
       --bg-2:        #1A1A1A;
       --border:      #2C2C2C;
       --ink:         #F0F0F0;
-      --ink-2:       #BBBBBB;
-      --ink-3:       #777777;
-      --ink-4:       #444444;
+      --ink-2:       #CCCCCC;
+      --ink-3:       #BBBBBB;
+      --ink-4:       #BBBBBB;
       --tag-bg:      #222222;
       --tag-hover:   #E0E0E0;
       --tag-hover-c: #111111;
+      --green:       #5AAF73;
       --toggle-bg:   #555555;
       --toggle-on:   #AAAAAA;
     }
@@ -185,7 +187,7 @@
       gap: 0;
       padding: 3rem 0;
       opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.2s;
+      animation: fadeUp 0.7s ease forwards 0.25s;
     }
 
     .col-content {
@@ -207,18 +209,18 @@
 
     /* ── COVER IMAGE ── */
     .cover-image {
-      width: 100%;
-      aspect-ratio: 16/9;
+      width: calc(100% + 4rem); /* compensate .page padding (2rem × 2) */
+      margin-left: -2rem;
       background: var(--bg-2);
-      border: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
       overflow: hidden;
-      margin-bottom: 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin-bottom: 0;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.15s;
     }
 
-    .cover-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cover-image img { width: 100%; height: auto; display: block; }
 
     .cover-placeholder {
       display: flex; flex-direction: column;
@@ -251,6 +253,25 @@
     }
 
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .gallery-item-wide {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 8/2;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin: 2rem 0;
+    }
+
+    .gallery-item-wide img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     .gallery-placeholder {
       display: flex; flex-direction: column;
@@ -312,9 +333,10 @@
     .info-line:last-child { border-bottom: none; }
     .info-line span:first-child { color: var(--ink-2); }
     .info-line span:last-child {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem; color: var(--ink-4);
+      font-size: 0.75rem; color: var(--ink-2);
     }
+
+    
 
     /* ── DOWNLOAD BUTTON ── */
     .download-btn {
@@ -421,211 +443,136 @@
   <!-- PROJECT HEADER -->
   <div class="project-header">
     <p class="label">
-      <span class="i" data-l="it">Case Study · 2023</span><!-- MODIFICA: anno -->
-      <span class="i" data-l="en" style="display:none">Case Study · 2023</span>
+      <span class="i" data-l="it">Case Study · 2026</span><!-- MODIFICA: anno -->
+      <span class="i" data-l="en" style="display:none">Case Study · 2026</span>
     </p>
     <h1>
-      <span class="i" data-l="it"><strong>Titolo</strong> del progetto</span><!-- MODIFICA -->
-      <span class="i" data-l="en" style="display:none"><strong>Project</strong> title</span>
+      <span class="i" data-l="it"><strong>Configuratore per cambio formati</strong></span><!-- MODIFICA -->
+      <span class="i" data-l="en" style="display:none"><strong>Change Parts configurator</strong></span>
     </h1>
 
-    <!-- META: anno, cliente, software, tag -->
-    <div class="project-meta">
-      <div class="meta-item">
-        <span class="meta-key i" data-l="it">Anno</span>
-        <span class="meta-key i" data-l="en" style="display:none">Year</span>
-        <span class="meta-val">2023</span><!-- MODIFICA -->
-      </div>
-      <div class="meta-item">
-        <span class="meta-key i" data-l="it">Azienda</span>
-        <span class="meta-key i" data-l="en" style="display:none">Company</span>
-        <span class="meta-val">Nome azienda</span><!-- MODIFICA -->
-      </div>
-      <div class="meta-item">
-        <span class="meta-key i" data-l="it">Ruolo</span>
-        <span class="meta-key i" data-l="en" style="display:none">Role</span>
-        <span class="meta-val i" data-l="it">Progettista</span><!-- MODIFICA -->
-        <span class="meta-val i" data-l="en" style="display:none">Designer</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-key">Software</span>
-        <div class="tag-list" style="margin-top:0.2rem">
-          <span class="tag">Solid Edge</span><!-- MODIFICA: aggiungi/rimuovi tag -->
-          <span class="tag">CATIA V5</span>
-        </div>
-      </div>
-    </div>
   </div>
+
+
 
   <!-- BODY -->
   <div class="project-body">
     <div class="col-content">
 
-      <!-- IMMAGINE COPERTINA -->
-      <div class="cover-image">
-        <!-- Con immagine: -->
-        <!-- <img src="cover.jpg" alt="Descrizione immagine"> -->
-
-        <!-- Placeholder (rimuovi quando hai l'immagine): -->
-        <div class="cover-placeholder">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span class="i" data-l="it">Immagine copertina</span>
-          <span class="i" data-l="en" style="display:none">Cover image</span>
-        </div>
-      </div>
-
-      <!-- SEZIONE: IL PROBLEMA -->
+      <!-- SEZIONE 1 -->
       <div class="content-block">
         <p class="section-label">
-          <span class="i" data-l="it">Il problema</span>
-          <span class="i" data-l="en" style="display:none">The problem</span>
+          <span class="i" data-l="it">Attività</span>
+          <span class="i" data-l="en" style="display:none">Activity</span>
         </p>
         <p class="i" data-l="it">
-          Descrivi qui il contesto e il problema da risolvere. Cosa non funzionava nella soluzione
-          precedente? Quali erano i vincoli di progetto (costo, peso, tempi di produzione, tolleranze)?
+          Definizione di un sistema per la realizzazione, in modalità semiautomatica, dei modelli 3D e delle tavole delle
+          attrezzature per il cambio formati.         
         </p>
         <p class="i" data-l="en" style="display:none">
-          Describe the context and the problem to solve. What wasn't working in the previous solution?
-          What were the design constraints (cost, weight, production time, tolerances)?
+          Definition of a system for the automatic generation of 3D models and drafts for format change parts.
         </p>
       </div>
 
-      <!-- GALLERIA IMMAGINI (2 colonne) -->
+      <!-- GALLERIA IMMAGINI -->
       <div class="gallery">
         <div class="gallery-item">
-          <!-- <img src="img-01.jpg" alt=""> -->
-          <div class="gallery-placeholder">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            <span>img-01</span>
-          </div>
+          <img src="vials.png" alt="">
+          
         </div>
         <div class="gallery-item">
-          <!-- <img src="img-02.jpg" alt=""> -->
-          <div class="gallery-placeholder">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            <span>img-02</span>
-          </div>
+          <img src="data input.png" alt="">      
         </div>
-        <!-- Aggiungi altre coppie <div class="gallery-item"> se servono -->
+
       </div>
 
-      <!-- SEZIONE: LA SOLUZIONE -->
+      <!-- SEZIONE: DESCRIZIONE -->
       <div class="content-block">
         <p class="section-label">
-          <span class="i" data-l="it">La soluzione</span>
-          <span class="i" data-l="en" style="display:none">The solution</span>
+          <span class="i" data-l="it">Caratteristiche</span>
+          <span class="i" data-l="en" style="display:none">Features</span>
         </p>
         <p class="i" data-l="it">
-          Descrivi l'approccio adottato. Come hai affrontato il problema? Quali scelte progettuali
-          hai fatto e perché?
+          Gli step seguiti per generazione dei file è stasuddivisa in più step, 
+          a partire da un file excel di input, che contiene le regole e le variabili, 
+          fino alla generazione dei file utilizzati come modelli.
         </p>
         <p class="i" data-l="en" style="display:none">
-          Describe the approach taken. How did you tackle the problem? What design choices
-          did you make and why?
+          The steps followed for file generation are divided into several steps, 
+          starting from an input Excel file, which contains the rules and variables, 
+          up to the generation of the files used as models.
         </p>
         <ul>
-          <li class="i" data-l="it">Punto chiave 1 della soluzione</li><!-- MODIFICA -->
-          <li class="i" data-l="en" style="display:none">Key point 1 of the solution</li>
-          <li class="i" data-l="it">Punto chiave 2 della soluzione</li>
-          <li class="i" data-l="en" style="display:none">Key point 2 of the solution</li>
-          <li class="i" data-l="it">Punto chiave 3 della soluzione</li>
-          <li class="i" data-l="en" style="display:none">Key point 3 of the solution</li>
+          <li class="i" data-l="it">Scomposizione della macchina in sottomoduli</li><!-- MODIFICA -->
+          <li class="i" data-l="en" style="display:none">Subdivision of the machine into submodules</li>
+          <li class="i" data-l="it">Definizione dei limiti di macchinabilità</li>
+          <li class="i" data-l="en" style="display:none">Definition of machineability limits</li>
+          <li class="i" data-l="it">Definizione regole altezze e giochi</li>
+          <li class="i" data-l="en" style="display:none">Definition of rules for heights and clearances</li>
         </ul>
       </div>
 
-      <!-- SEZIONE: RISULTATI -->
-      <div class="content-block">
-        <p class="section-label">
-          <span class="i" data-l="it">Risultati</span>
-          <span class="i" data-l="en" style="display:none">Results</span>
-        </p>
-        <p class="i" data-l="it">
-          Cosa ha portato il progetto? Riduzioni di costo, tempi, peso? Brevetti depositati?
-          Feedback del cliente?
-        </p>
-        <p class="i" data-l="en" style="display:none">
-          What did the project deliver? Cost, time, weight reductions? Patents filed?
-          Client feedback?
-        </p>
+      <div class="gallery-item-wide">
+        <img src="conf.png" alt="">
       </div>
 
+      <p class="i" data-l="it">
+        Alla lista di regole sulle altezze ed in giochi è stata aggiunta una tabella di controllo che, 
+        a partire dai dati di input, restituisce una lista di check, al fine di evidenziare criticità progettuali.
+      </p>
+      <p class="i" data-l="en" style="display:none">
+        A control table was added to the list of rules on heights and clearances that, 
+        starting from the input data, returns a list of checks, in order to highlight design criticalities.
+      </p>
+
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="checkok.png" alt="">
+        </div>
+        <div class="gallery-item">
+          <img src="checkko.png" alt="">      
+        </div>
+      </div>
+
+      <p class="i" data-l="it">
+        Tramite delle tabelle di appoggio vengono poi restituite una lista di celle con all'interno i valori
+        che vengono utilizzate come variabili all'interno dei file di solidedge per la generazione delle matematiche.
+      </p>
+      <p class="i" data-l="en" style="display:none">
+        Using support tables, a list of cells with the values inside is then returned, 
+        which are used as variables within the Solid Edge files for the generation of the 3D models.
+      </p>
     </div><!-- /col-content -->
 
-    <!-- COLONNA LATERALE -->
     <div class="col-aside">
 
       <!-- DETTAGLI TECNICI -->
-      <div class="aside-section">
+      <div class="aside-section">    
         <p class="section-label">
           <span class="i" data-l="it">Dettagli</span>
           <span class="i" data-l="en" style="display:none">Details</span>
         </p>
         <div class="info-line">
-          <span class="i" data-l="it">Settore</span>
-          <span class="i" data-l="en" style="display:none">Sector</span>
-          <span class="i" data-l="it">Farmaceutico</span><!-- MODIFICA -->
-          <span class="i" data-l="en" style="display:none">Pharmaceutical</span>
+          <span class="info-key i" data-l="it">Anno</span>
+          <span class="info-key i" data-l="en" style="display:none">Year</span>
+          <span class="info-val i" data-l="it">2025/26</span><!-- MODIFICA -->
+          <span class="info-val i" data-l="en" style="display:none">2025/26</span>
         </div>
         <div class="info-line">
-          <span class="i" data-l="it">Materiale</span>
-          <span class="i" data-l="en" style="display:none">Material</span>
-          <span>Tecnopolimero</span><!-- MODIFICA -->
+          <span class="info-key i" data-l="it">Settore</span>
+          <span class="info-key i" data-l="en" style="display:none">Sector</span>
+          <span class="info-val i" data-l="it">Farmaceutico</span><!-- MODIFICA -->
+          <span class="info-val i" data-l="en" style="display:none">Pharma</span>
         </div>
         <div class="info-line">
-          <span class="i" data-l="it">Processo</span>
-          <span class="i" data-l="en" style="display:none">Process</span>
-          <span class="i" data-l="it">Stampaggio</span><!-- MODIFICA -->
-          <span class="i" data-l="en" style="display:none">Moulding</span>
+          <span class="info-key i" data-l="it">Software</span>
+          <span class="info-key i" data-l="en" style="display:none">Software</span>
+          <span class="info-val i" data-l="it">Solid Edge</span><!-- MODIFICA -->
+          <span class="info-val i" data-l="en" style="display:none">Solid Edge</span>
         </div>
-        <div class="info-line">
-          <span class="i" data-l="it">Durata</span>
-          <span class="i" data-l="en" style="display:none">Duration</span>
-          <span>6 mesi</span><!-- MODIFICA -->
-        </div>
-      </div>
-
-      <!-- DOWNLOAD (mostra solo se hai file da condividere) -->
-      <div class="aside-section">
-        <p class="section-label">Download</p>
-
-        <!-- File STL -->
-        <a href="file.stl" download class="download-btn"><!-- MODIFICA: href -->
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          File STL
-        </a>
-
-        <!-- Script / codice -->
-        <a href="https://github.com/tuousername/repo" target="_blank" rel="noopener" class="download-btn"><!-- MODIFICA: href -->
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          GitHub →
-        </a>
-
-        <!-- PDF tecnico -->
-        <a href="documento.pdf" download class="download-btn"><!-- MODIFICA: href, oppure rimuovi -->
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          <span class="i" data-l="it">Scheda tecnica PDF</span>
-          <span class="i" data-l="en" style="display:none">Technical sheet PDF</span>
-        </a>
-      </div>
-
-      <!-- BREVETTO (mostra solo se applicabile) -->
-      <div class="aside-section">
-        <p class="section-label">
-          <span class="i" data-l="it">Brevetto</span>
-          <span class="i" data-l="en" style="display:none">Patent</span>
-        </p>
-        <div class="patent-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <div class="patent-text">
-            <strong class="i" data-l="it">Numero brevetto</strong>
-            <strong class="i" data-l="en" style="display:none">Patent number</strong>
-            WO2023007412A1<!-- MODIFICA -->
-          </div>
-        </div>
-      </div>
-
+      </div><!-- /aside-section -->
     </div><!-- /col-aside -->
-  </div>
+  </div><!-- /project-body -->
 
   <footer>
     <span class="footer-copy">© 2026 Federico Reviati</span>

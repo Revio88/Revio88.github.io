@@ -440,7 +440,12 @@
       gap: 0.75rem;
     }
 
-    .sp-banner svg { opacity: 0.3; flex-shrink: 0; margin-top: 2px; }
+    .sp-banner svg { opacity: 0.45; flex-shrink: 0; }
+
+    .sp-banner:hover {
+      background: var(--tag-bg);
+      border-color: var(--ink-3);
+    }
 
     .sp-text {
       font-family: 'IBM Plex Mono', monospace;
@@ -541,16 +546,25 @@
       Parma, Italia
     </div>
     <div class="meta-item">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-      <span class="i" data-l="it">15+ anni di esperienza</span>
-      <span class="i" data-l="en" style="display:none">15+ years of experience</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l.95-.96a2 2 0 0 1 2.11-.45c.908.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span class="i" data-l="it">+39 346 394 1321</span>
+      <span class="i" data-l="en" style="display:none">+39 346 394 1321</span>
+    </div>
+
+    <div class="contact-list">
+      <a href="mailto:federico@reviati.com" class="contact-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        federico@reviati.com
+      </a>
     </div>
     <div class="meta-item">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span class="i" data-l="it">Freelance dal 2026</span>
-      <span class="i" data-l="en" style="display:none">Freelance since 2026</span>
+      <a href="https://www.linkedin.com/in/reviati" target="_blank" rel="noopener" class="contact-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
     </div>
   </div>
+
 
   <!-- MAIN GRID -->
   <div class="main-grid">
@@ -668,26 +682,7 @@
         </div>
       </div>
 
-      <div class="side-section">
-        <p class="section-label">
-          <span class="i" data-l="it">Contatti</span>
-          <span class="i" data-l="en" style="display:none">Contact</span>
-        </p>
-        <div class="contact-list">
-          <a href="mailto:federico@reviati.com" class="contact-link">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            federico@reviati.com
-          </a>
-          <a href="tel:+393463941321" class="contact-link">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l.95-.96a2 2 0 0 1 2.11-.45c.908.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            +39 346 394 1321
-          </a>
-          <a href="https://www.linkedin.com/in/reviati" target="_blank" rel="noopener" class="contact-link">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-            LinkedIn
-          </a>
-        </div>
-      </div>
+
 
       <div class="side-section">
         <p class="section-label">
@@ -704,24 +699,7 @@
         </div>
       </div>
 
-      <div class="side-section">
-        <p class="section-label">
-          <span class="i" data-l="it">Competenze</span>
-          <span class="i" data-l="en" style="display:none">Skills</span>
-        </p>
-        <div class="tag-list">
-          <span class="tag i" data-l="it">Macchine automatiche</span>
-          <span class="tag i" data-l="en" style="display:none">Automated machinery</span>
-          <span class="tag i" data-l="it">Stampaggio a iniezione</span>
-          <span class="tag i" data-l="en" style="display:none">Injection moulding</span>
-          <span class="tag i" data-l="it">Modellazione 3D parametrica</span>
-          <span class="tag i" data-l="en" style="display:none">Parametric 3D modelling</span>
-          <span class="tag i" data-l="it">Settore farmaceutico</span>
-          <span class="tag i" data-l="en" style="display:none">Pharmaceutical</span>
-          <span class="tag i" data-l="it">Dispositivi medicali</span>
-          <span class="tag i" data-l="en" style="display:none">Medical devices</span>
-        </div>
-      </div>
+
 
       <div class="side-section">
         <p class="section-label">
@@ -760,16 +738,33 @@
       </div>
 
       <div class="side-section">
-        <p class="section-label">Side Projects</p>
-        <div class="sp-banner">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        <p class="section-label">Projects</p>
+        <a href="projects/index_.html" class="sp-banner" style="text-decoration:none;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8">
+            <!-- chiave inglese stilizzata -->
+            <path d="M14.7 6.3a4 4 0 1 0 3 3l-3.2 3.2-2-2 3.2-3.2z"/>
+            <path d="M3 21l6.5-6.5"/>
+          </svg>
           <div class="sp-text">
-            <strong class="i" data-l="it">In arrivo</strong>
-            <strong class="i" data-l="en" style="display:none">Coming soon</strong>
-            <span class="i" data-l="it">soon</span>
-            <span class="i" data-l="en" style="display:none">soon</span>
+            <strong>Projects</strong>
+            <span class="i" data-l="it">Progetti selezionati</span>
+            <span class="i" data-l="en" style="display:none">Selected projects</span>
           </div>
-        </div>
+        </a>
+
+        <p class="section-label">Tools</p>
+        <a href="tools/index.html" class="sp-banner" style="text-decoration:none;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8">
+            <!-- bullone stilizzato -->
+            <polygon points="12 2 17 5 17 11 12 14 7 11 7 5"/>
+            <circle cx="12" cy="8" r="2"/>
+          </svg>
+          <div class="sp-text">
+            <strong>Tools</strong>
+            <span class="i" data-l="it">Strumenti di calcolo</span>
+            <span class="i" data-l="en" style="display:none">Calculation tools</span>
+          </div>
+        </a>
       </div>
 
     </div>

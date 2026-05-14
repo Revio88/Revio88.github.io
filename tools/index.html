@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tools — Federico Reviati</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #F8F8F8;
+      --bg-2:        #EFEFEF;
+      --border:      #DCDCDC;
+      --ink:         #111111;
+      --ink-2:       #444444;
+      --ink-3:       #555555;
+      --ink-4:       #BBBBBB;
+      --tag-bg:      #EBEBEB;
+      --tag-hover:   #222222;
+      --tag-hover-c: #FFFFFF;
+      --green:       #4A8C5C;
+      --toggle-bg:   #CCCCCC;
+      --toggle-on:   #555555;
+    }
+    [data-theme="dark"] {
+      --bg:          #111111;
+      --bg-2:        #1A1A1A;
+      --border:      #2C2C2C;
+      --ink:         #F0F0F0;
+      --ink-2:       #CCCCCC;
+      --ink-3:       #BBBBBB;
+      --ink-4:       #BBBBBB;
+      --tag-bg:      #222222;
+      --tag-hover:   #E0E0E0;
+      --tag-hover-c: #111111;
+      --green:       #5AAF73;
+      --toggle-bg:   #555555;
+      --toggle-on:   #AAAAAA;
+    }
+    [data-theme="dark"] body { font-weight:400; -webkit-font-smoothing:antialiased; }
+
+    html { scroll-behavior:smooth; }
+    body {
+      background:var(--bg); color:var(--ink);
+      font-family:'IBM Plex Sans',sans-serif; font-weight:300;
+      min-height:100vh; overflow-x:hidden;
+      transition:background 0.25s,color 0.25s;
+    }
+    .page { max-width:920px; margin:0 auto; padding:0 2rem; }
+
+    /* TOP BAR */
+    .topbar {
+      display:flex; justify-content:space-between; align-items:center;
+      gap:1.25rem; padding:1.1rem 0; border-bottom:1px solid var(--border);
+      opacity:0; animation:fadeUp 0.6s ease forwards 0s;
+    }
+    .topbar-left  { display:flex; align-items:center; gap:1rem; }
+    .topbar-right { display:flex; align-items:center; gap:1.25rem; }
+
+    .site-name {
+      font-family:'IBM Plex Mono',monospace; font-size:0.65rem;
+      letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--ink-2); text-decoration:none;
+    }
+    .site-name:hover { color:var(--ink); }
+    .topbar-sep { font-family:'IBM Plex Mono',monospace; font-size:0.6rem; color:var(--ink-4); }
+
+    .lang-switch { display:flex; border:1px solid var(--border); border-radius:2px; overflow:hidden; }
+    .lang-btn {
+      background:none; border:none; cursor:pointer;
+      font-family:'IBM Plex Mono',monospace; font-size:0.64rem;
+      letter-spacing:0.12em; padding:0.28rem 0.65rem;
+      color:var(--ink-3); transition:background 0.15s,color 0.15s;
+    }
+    .lang-btn.active { background:var(--ink); color:var(--bg); }
+    .lang-btn:not(.active):hover { background:var(--tag-bg); color:var(--ink); }
+
+    .theme-toggle { display:flex; align-items:center; gap:0.5rem; cursor:pointer; user-select:none; }
+    .theme-label {
+      font-family:'IBM Plex Mono',monospace; font-size:0.62rem;
+      letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-3);
+    }
+    .toggle-track {
+      width:34px; height:18px; background:var(--toggle-bg);
+      border-radius:9px; position:relative; transition:background 0.25s; flex-shrink:0;
+    }
+    .toggle-track::after {
+      content:''; position:absolute; top:2px; left:2px;
+      width:14px; height:14px; border-radius:50%; background:var(--bg);
+      transition:transform 0.25s; box-shadow:0 1px 3px rgba(0,0,0,0.25);
+    }
+    [data-theme="dark"] .toggle-track { background:var(--toggle-on); }
+    [data-theme="dark"] .toggle-track::after { transform:translateX(16px); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding:3rem 0 2.5rem; border-bottom:1px solid var(--border);
+      opacity:0; animation:fadeUp 0.7s ease forwards 0.1s;
+    }
+    .label {
+      font-family:'IBM Plex Mono',monospace; font-size:0.62rem;
+      letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-3); margin-bottom:1rem;
+    }
+    h1 {
+      font-size:clamp(2rem,4.5vw,3.2rem); font-weight:300;
+      line-height:1.08; letter-spacing:-0.025em; color:var(--ink); margin-bottom:0.7rem;
+    }
+    h1 strong { font-weight:500; }
+    .page-subtitle { font-size:0.88rem; font-weight:300; color:var(--ink-3); line-height:1.75; max-width:560px; }
+
+    /* TOOLS LIST */
+    .tools-list { padding:2.5rem 0; opacity:0; animation:fadeUp 0.7s ease forwards 0.25s; }
+
+    .section-label {
+      font-family:'IBM Plex Mono',monospace; font-size:0.6rem;
+      letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-3);
+      margin-bottom:1.5rem; display:flex; align-items:center; gap:0.75rem;
+    }
+    .section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+    .tool-item {
+      display:grid; grid-template-columns:1fr auto; gap:1.5rem;
+      align-items:start; padding:1.6rem 0; border-bottom:1px solid var(--border);
+    }
+    .tool-item:first-of-type { border-top:1px solid var(--border); }
+
+    .tool-norm {
+      font-family:'IBM Plex Mono',monospace; font-size:0.6rem;
+      letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-4); margin-bottom:0.35rem;
+    }
+    .tool-name { font-size:0.95rem; font-weight:500; color:var(--ink); margin-bottom:0.5rem; }
+    .tool-desc { font-size:0.82rem; font-weight:300; color:var(--ink-3); line-height:1.75; margin-bottom:0.85rem; }
+
+    .tag-list { display:flex; flex-wrap:wrap; gap:0.35rem; }
+    .tag {
+      font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.04em;
+      padding:0.28rem 0.55rem; border:1px solid var(--border);
+      background:var(--tag-bg); color:var(--ink-3);
+      transition:background 0.15s,color 0.15s,border-color 0.15s; cursor:default;
+    }
+
+    .open-btn {
+      font-family:'IBM Plex Mono',monospace; font-size:0.62rem;
+      letter-spacing:0.1em; text-transform:uppercase;
+      border:1px solid var(--border); padding:0.45rem 1rem;
+      cursor:pointer; background:none; color:var(--ink-3);
+      white-space:nowrap; transition:background 0.15s,color 0.15s,border-color 0.15s;
+    }
+    .open-btn:hover { background:var(--ink); color:var(--bg); border-color:var(--ink); }
+    .open-btn.soon { opacity:0.35; cursor:default; pointer-events:none; }
+
+    /* MODAL */
+    .modal-overlay {
+      display:none; position:fixed; inset:0;
+      background:rgba(0,0,0,0.5); z-index:300;
+      align-items:center; justify-content:center; padding:1.5rem;
+    }
+    .modal-overlay.open { display:flex; }
+    .modal {
+      background:var(--bg); border:1px solid var(--border);
+      width:100%; max-width:780px; max-height:90vh;
+      display:flex; flex-direction:column; overflow:hidden;
+    }
+    .modal-header {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:0.9rem 1.4rem; border-bottom:1px solid var(--border); flex-shrink:0;
+    }
+    .modal-title {
+      font-family:'IBM Plex Mono',monospace; font-size:0.65rem;
+      letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-3);
+    }
+    .modal-close {
+      background:none; border:none; cursor:pointer;
+      font-family:'IBM Plex Mono',monospace; font-size:0.68rem;
+      letter-spacing:0.08em; color:var(--ink-4); padding:0; transition:color 0.15s;
+    }
+    .modal-close:hover { color:var(--ink); }
+    .modal-body { flex:1; overflow-y:auto; padding:1.5rem 1.4rem; }
+
+    /* TOOL UI */
+    .tool-ui { font-family:'IBM Plex Sans',sans-serif; font-weight:300; }
+    .t-row { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:1.25rem; }
+    .t-col { flex:1; min-width:120px; }
+    .t-col label {
+      display:block; font-family:'IBM Plex Mono',monospace;
+      font-size:0.58rem; letter-spacing:0.1em; text-transform:uppercase;
+      color:var(--ink-4); margin-bottom:6px;
+    }
+    .t-col input[type=number], .t-col select {
+      width:100%; font-family:'IBM Plex Mono',monospace; font-size:0.75rem;
+      padding:0.45rem 0.65rem; border:1px solid var(--border);
+      background:var(--bg-2); color:var(--ink); outline:none;
+      transition:border-color 0.15s; -webkit-appearance:none; appearance:none;
+    }
+    .t-col input:focus, .t-col select:focus { border-color:var(--ink-3); }
+
+    .metrics {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+      gap:1px; background:var(--border); border:1px solid var(--border); margin:1.25rem 0;
+    }
+    .metric { background:var(--bg); padding:0.85rem 1rem; }
+    .m-label {
+      font-family:'IBM Plex Mono',monospace; font-size:0.56rem;
+      letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-4); margin:0 0 5px;
+    }
+    .m-value {
+      font-family:'IBM Plex Mono',monospace; font-size:1.2rem;
+      font-weight:400; color:var(--ink); letter-spacing:-0.02em;
+    }
+    .m-unit { font-family:'IBM Plex Mono',monospace; font-size:0.58rem; color:var(--ink-4); margin-left:3px; }
+
+    .result-block { border:1px solid var(--border); padding:1rem 1.1rem; margin:1.25rem 0; background:var(--bg-2); }
+    .result-title {
+      font-family:'IBM Plex Mono',monospace; font-size:0.58rem;
+      letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-4); margin:0 0 0.75rem;
+    }
+
+    .fit-badge {
+      display:inline-block; font-family:'IBM Plex Mono',monospace;
+      font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase;
+      padding:0.22rem 0.6rem; margin-bottom:0.9rem; border:1px solid currentColor;
+    }
+    .badge-gioco        { color:#2a6496; }
+    .badge-interferenza { color:#a32d2d; }
+    .badge-incerto      { color:#7a5500; }
+    [data-theme="dark"] .badge-gioco        { color:#7ab8e8; }
+    [data-theme="dark"] .badge-interferenza { color:#e87a7a; }
+    [data-theme="dark"] .badge-incerto      { color:#e8c47a; }
+
+    .viz-svg { width:100%; height:72px; display:block; margin-top:0.75rem; }
+    .t-divider { border:none; border-top:1px solid var(--border); margin:1.1rem 0; }
+    .t-note {
+      font-family:'IBM Plex Mono',monospace; font-size:0.58rem;
+      letter-spacing:0.04em; color:var(--ink-4); line-height:1.8;
+    }
+    .dev-table { width:100%; border-collapse:collapse; }
+    .dev-table th {
+      font-family:'IBM Plex Mono',monospace; font-size:0.56rem; letter-spacing:0.1em;
+      text-transform:uppercase; color:var(--ink-4); font-weight:400;
+      text-align:left; padding:5px 8px; border-bottom:1px solid var(--border);
+    }
+    .dev-table td {
+      font-family:'IBM Plex Mono',monospace; font-size:0.68rem;
+      color:var(--ink-2); padding:6px 8px; border-bottom:1px solid var(--border);
+    }
+    .dev-table tr:last-child td { border-bottom:none; }
+    .t-err { font-family:'IBM Plex Mono',monospace; font-size:0.65rem; color:#c0392b; padding:6px 0; }
+
+    /* FOOTER */
+    footer {
+      padding:1.5rem 0 3rem; border-top:1px solid var(--border);
+      display:flex; justify-content:space-between; align-items:center;
+      opacity:0; animation:fadeUp 0.7s ease forwards 0.5s;
+    }
+    .footer-copy {
+      font-family:'IBM Plex Mono',monospace; font-size:0.6rem;
+      letter-spacing:0.1em; color:var(--ink-4); text-transform:uppercase; text-decoration:none;
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(10px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    @media (max-width:600px) {
+      .tool-item { grid-template-columns:1fr; }
+      .page { padding:0 1.25rem; }
+      footer { flex-direction:column; gap:0.5rem; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="https://reviati.com/" class="site-name">Federico Reviati</a>
+      <span class="topbar-sep">/</span>
+      <span class="site-name" style="color:var(--ink-4);">Tools</span>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-switch" role="group" aria-label="Lingua / Language">
+        <button class="lang-btn active" id="btn-it" onclick="setLang('it')">IT</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+      <label class="theme-toggle" aria-label="Dark mode">
+        <span class="theme-label i" data-l="it">Dark theme</span>
+        <span class="theme-label i" data-l="en" style="display:none">Dark mode</span>
+        <div class="toggle-track" id="themeTrack" role="switch" tabindex="0"
+             onclick="toggleTheme()" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTheme()"></div>
+      </label>
+    </div>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <p class="label">Tools · 2026</p>
+    <h1>
+      <strong class="i" data-l="it">Calcolatori tecnici</strong>
+      <strong class="i" data-l="en" style="display:none">Technical calculators</strong>
+    </h1>
+    <p class="page-subtitle i" data-l="it">Strumenti di calcolo rapido durante revisioni di progetto e riunioni tecniche con i clienti.</p>
+    <p class="page-subtitle i" data-l="en" style="display:none">Engineering calculation tools for professional use — designed for quick reference during design reviews and technical meetings with clients.</p>
+  </div>
+
+  <!-- TOOLS LIST -->
+  <div class="tools-list">
+
+
+    <!-- ISO FIT -->
+    <div class="tool-item">
+      <div>
+
+        <p class="tool-name">
+          <span class="i" data-l="it">Accoppiamenti ISO</span>
+          <span class="i" data-l="en" style="display:none">ISO Fits</span>
+        </p>
+        <p class="tool-desc i" data-l="it">Calcola gioco o interferenza di un accoppiamento foro-albero. Inserisci diametro nominale e designazioni di tolleranza per ottenere i limiti dimensionali e il tipo di accoppiamento risultante.</p>
+        <p class="tool-desc i" data-l="en" style="display:none">Calculate clearance or interference for a hole-shaft fit. Enter nominal diameter and tolerance designations to get dimensional limits and the resulting fit type.</p>
+        <div class="tag-list">
+          <span class="tag">ISO 286</span>
+          <span class="tag"><span class="i" data-l="it">Tolleranze</span><span class="i" data-l="en" style="display:none">Tolerances</span></span>
+          <span class="tag"><span class="i" data-l="it">Accoppiamenti</span><span class="i" data-l="en" style="display:none">Fits</span></span>
+        </div>
+      </div>
+      <div>
+        <button class="open-btn" onclick="openTool('iso-fit')">
+          <span class="i" data-l="it">Apri</span><span class="i" data-l="en" style="display:none">Open</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- BOLT TORQUE -->
+    <div class="tool-item">
+      <div>
+
+        <p class="tool-name">
+          <span class="i" data-l="it">Coppia di serraggio bulloni</span>
+          <span class="i" data-l="en" style="display:none">Bolt tightening torque</span>
+        </p>
+        <p class="tool-desc i" data-l="it">Calcolo della coppia di serraggio e forza di precarico per bulloni metrici ISO, in funzione della classe di resistenza, del passo e del coefficiente di attrito.</p>
+        <p class="tool-desc i" data-l="en" style="display:none">Tightening torque and preload for metric ISO bolts, based on strength class, pitch and friction coefficient.</p>
+        <div class="tag-list">
+          <span class="tag">ISO 898</span>
+          <span class="tag"><span class="i" data-l="it">Bulloneria</span><span class="i" data-l="en" style="display:none">Fasteners</span></span>
+          <span class="tag"><span class="i" data-l="it">Precarico</span><span class="i" data-l="en" style="display:none">Preload</span></span>
+        </div>
+      </div>
+      <div>
+        <button class="open-btn" onclick="openTool('bolt-torque')">
+          <span class="i" data-l="it">Apri</span><span class="i" data-l="en" style="display:none">Open</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- CLAMP (coming soon) -->
+    <div class="tool-item">
+      <div>
+        <p class="tool-norm"><span class="i" data-l="it">In arrivo</span><span class="i" data-l="en" style="display:none">Coming soon</span></p>
+        <p class="tool-name">
+          <span class="i" data-l="it">Altri tool in arrivo</span>
+          <span class="i" data-l="en" style="display:none">Additional tools coming soon</span>
+        </p>
+        <p class="tool-desc i" data-l="it">_</p>
+        <p class="tool-desc i" data-l="en" style="display:none">_</p>
+        <div class="tag-list">
+
+        </div>
+      </div>
+      <div>
+        <button class="open-btn soon" disabled>
+          <span class="i" data-l="it">Presto</span><span class="i" data-l="en" style="display:none">Soon</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="footer-copy">© 2026 Federico Reviati</span>
+    <a href="https://reviati.com/" class="footer-copy" style="opacity:0.55;">← Portfolio</a>
+  </footer>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeOnOverlay(event)">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title"></span>
+      <button class="modal-close" onclick="closeModal()">ESC ✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+/* ── LANG ── */
+function setLang(lang) {
+  document.querySelectorAll('.i[data-l]').forEach(el => {
+    el.style.display = el.dataset.l === lang ? '' : 'none';
+  });
+  document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.documentElement.lang = lang;
+  localStorage.setItem('lang', lang);
+}
+
+/* ── THEME ── */
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+}
+
+/* ── RESTORE ── */
+(function() {
+  const t = localStorage.getItem('theme');
+  if (t) document.documentElement.setAttribute('data-theme', t);
+  const l = localStorage.getItem('lang');
+  if (l && l !== 'it') setLang(l);
+})();
+
+/* ── MODAL ── */
+function openTool(id) {
+  const lang = localStorage.getItem('lang') || 'it';
+  const overlay = document.getElementById('modal-overlay');
+  const body    = document.getElementById('modal-body');
+  const title   = document.getElementById('modal-title');
+  if (id === 'iso-fit') {
+    title.textContent = lang === 'it' ? 'Accoppiamenti ISO 286' : 'ISO 286 Fits';
+    body.innerHTML = buildIsoTool(lang);
+    initIso(lang);
+  } else if (id === 'bolt-torque') {
+    title.textContent = lang === 'it' ? 'Coppia di serraggio bulloni' : 'Bolt tightening torque';
+    body.innerHTML = buildBoltTool(lang);
+    initBolt();
+  }
+  overlay.classList.add('open');
+}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+function closeOnOverlay(e) { if (e.target === document.getElementById('modal-overlay')) closeModal(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+
+/* ════════════════════════════
+   ISO FIT TOOL
+════════════════════════════ */
+function buildIsoTool(lang) {
+  const _ = (it, en) => lang === 'it' ? it : en;
+  return `<div class="tool-ui">
+<div class="t-row">
+  <div class="t-col" style="max-width:155px;"><label>${_('Diametro nominale (mm)','Nominal diameter (mm)')}</label><input type="number" id="t-diam" value="25" min="1" max="500" step="1"></div>
+  <div class="t-col"><label>${_('Tolleranza foro','Hole tolerance')}</label><select id="t-foro"></select></div>
+  <div class="t-col"><label>${_('Tolleranza albero','Shaft tolerance')}</label><select id="t-albero"></select></div>
+</div>
+<div id="t-err" class="t-err" style="display:none;"></div>
+<div id="t-res" style="display:none;">
+  <div class="metrics">
+    <div class="metric"><p class="m-label">${_('Foro — limite sup.','Hole — upper limit')}</p><p class="m-value" id="t-fmax">—</p><span class="m-unit">mm</span></div>
+    <div class="metric"><p class="m-label">${_('Foro — limite inf.','Hole — lower limit')}</p><p class="m-value" id="t-fmin">—</p><span class="m-unit">mm</span></div>
+    <div class="metric"><p class="m-label">${_('Albero — limite sup.','Shaft — upper limit')}</p><p class="m-value" id="t-amax">—</p><span class="m-unit">mm</span></div>
+    <div class="metric"><p class="m-label">${_('Albero — limite inf.','Shaft — lower limit')}</p><p class="m-value" id="t-amin">—</p><span class="m-unit">mm</span></div>
+  </div>
+  <div class="result-block">
+    <p class="result-title">${_('Risultato','Result')} <span id="t-fname" style="opacity:0.5;font-weight:300;"></span></p>
+    <span class="fit-badge" id="t-badge">—</span>
+    <div class="metrics">
+      <div class="metric"><p class="m-label" id="t-l1">—</p><p class="m-value" id="t-v1">—</p></div>
+      <div class="metric"><p class="m-label" id="t-l2">—</p><p class="m-value" id="t-v2">—</p></div>
+    </div>
+    <svg class="viz-svg" id="t-viz" viewBox="0 0 520 72" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+  <hr class="t-divider">
+  <p class="t-note" style="margin-bottom:0.6rem;">${_('Deviazioni fondamentali (scostamenti dal nominale)','Fundamental deviations (from nominal)')}</p>
+  <table class="dev-table">
+    <thead><tr><th>${_('Elemento','Element')}</th><th>${_('Design.','Desig.')}</th><th>ES / es</th><th>EI / ei</th></tr></thead>
+    <tbody id="t-devtb"></tbody>
+  </table>
+</div>
+</div>`;
+}
+
+const IR = [[0,3],[3,6],[6,10],[10,18],[18,30],[30,50],[50,80],[80,120],[120,180],[180,250],[250,315],[315,400],[400,500]];
+const IT7 = {
+  5:[0.4,0.5,0.6,0.8,1,1,1.2,1.5,2,3,4,5,6],
+  6:[0.6,0.75,0.9,1.1,1.3,1.6,1.9,2.2,2.5,2.9,3.2,3.6,4],
+  7:[1,1.2,1.5,1.8,2.1,2.5,3,3.5,4,4.6,5.2,5.7,6.3],
+  8:[1.4,1.8,2.2,2.7,3.3,3.9,4.6,5.4,6.3,7.2,8.1,8.9,9.7],
+  9:[2.5,3,3.6,4.3,5.2,6.2,7.4,8.7,10,11.5,13,14,15.5],
+  10:[4,4.8,5.8,7,8.4,10,12,14,16,18.5,21,23,25],
+  11:[6,7.5,9,11,13,16,19,22,25,29,32,36,40]
+};
+const IH = {
+  H:{d:()=>0},G:{d:r=>[2,4,5,6,7,9,10,12,14,15,17,18,20][r]},
+  F:{d:r=>[6,10,13,16,20,25,30,36,43,50,56,62,68][r]},
+  E:{d:r=>[14,20,25,32,40,50,60,72,85,100,110,125,135][r]},
+  D:{d:r=>[20,30,40,50,65,80,100,120,145,170,190,210,230][r]},
+  JS:{d:()=>0,sym:true},K:{d:()=>0,neg:true},
+  N:{d:r=>[4,4,4,5,5,6,7,8,9,10,11,13,15][r],neg:true},
+  P:{d:r=>[6,8,9,11,14,17,21,24,28,33,37,41,45][r],neg:true}
+};
+const IS = {
+  h:{d:()=>0,neg:true},g:{d:r=>[2,4,5,6,7,9,10,12,14,15,17,18,20][r],neg:true},
+  f:{d:r=>[6,10,13,16,20,25,30,36,43,50,56,62,68][r],neg:true},
+  e:{d:r=>[14,20,25,32,40,50,60,72,85,100,110,125,135][r],neg:true},
+  d:{d:r=>[20,30,40,50,65,80,100,120,145,170,190,210,230][r],neg:true},
+  js:{d:()=>0,sym:true},k:{d:r=>[0,1,1,1,2,2,2,3,3,4,4,4,5][r]},
+  m:{d:r=>[2,4,6,7,8,9,11,13,15,17,20,21,23][r]},
+  n:{d:r=>[4,8,10,12,15,17,20,23,27,31,34,37,40][r]},
+  p:{d:r=>[6,12,15,18,22,26,32,37,43,50,56,62,68][r]},
+  r:{d:r=>[10,15,19,23,28,34,41,48,58,68,78,87,98][r]},
+  s:{d:r=>[14,19,23,28,35,43,53,59,71,83,89,114][r]}
+};
+function ri(d){for(let i=0;i<IR.length;i++)if(d>IR[i][0]&&d<=IR[i][1])return i;return -1;}
+function pd(s){const m=s.match(/^([A-Za-z]+)(\d+)$/);return m?{l:m[1],q:parseInt(m[2])}:null;}
+function gd(l,q,r,ih){
+  const t=ih?IH:IS,e=t[l];if(!e||!IT7[q])return null;
+  const it=IT7[q][r],dv=e.d(r);
+  if(ih){if(e.sym)return{u:it/2,lo:-it/2};const EI=e.neg?-dv:dv;return{u:EI+it,lo:EI};}
+  else{if(e.sym)return{u:it/2,lo:-it/2};const es=e.neg?-dv:dv;return{u:es,lo:es-it};}
+}
+
+function initIso(lang) {
+  const hO=['H6','H7','H8','H9','H11','G6','G7','F7','F8','E8','E9','D9','D10','JS7','K7','N7','P7'];
+  const aO=['h5','h6','h7','h8','h9','h11','g6','f7','f6','e8','d9','js6','k6','k7','m6','n6','p6','r6','s6'];
+  function pop(id,opts,def){const s=document.getElementById(id);s.innerHTML='';opts.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===def)o.selected=true;s.appendChild(o);});}
+  pop('t-foro',hO,'H7'); pop('t-albero',aO,'h6');
+  ['t-diam','t-foro','t-albero'].forEach(id=>{
+    document.getElementById(id).addEventListener('input',()=>calcIso(lang));
+    document.getElementById(id).addEventListener('change',()=>calcIso(lang));
+  });
+  calcIso(lang);
+}
+
+function calcIso(lang) {
+  const _ = (it,en) => lang==='it'?it:en;
+  const D=parseFloat(document.getElementById('t-diam').value);
+  const fS=document.getElementById('t-foro').value;
+  const aS=document.getElementById('t-albero').value;
+  const err=document.getElementById('t-err'), res=document.getElementById('t-res');
+  const r=ri(D);
+  if(r<0){err.textContent=_('Diametro fuori range (1–500 mm).','Diameter out of range (1–500 mm).');err.style.display='';res.style.display='none';return;}
+  const fD=pd(fS),aD=pd(aS);
+  if(!fD||!aD){err.style.display='';res.style.display='none';return;}
+  const fv=gd(fD.l,fD.q,r,true),av=gd(aD.l,aD.q,r,false);
+  if(!fv||!av){err.textContent=_('Dati non disponibili.','Data not available.');err.style.display='';res.style.display='none';return;}
+  err.style.display='none';res.style.display='';
+  const FM=D+fv.u/1000,Fm=D+fv.lo/1000,AM=D+av.u/1000,Am=D+av.lo/1000;
+  document.getElementById('t-fmax').textContent=FM.toFixed(4);
+  document.getElementById('t-fmin').textContent=Fm.toFixed(4);
+  document.getElementById('t-amax').textContent=AM.toFixed(4);
+  document.getElementById('t-amin').textContent=Am.toFixed(4);
+  document.getElementById('t-fname').textContent=fS+'/'+aS;
+  const Gx=FM-Am,Gn=Fm-AM;
+  const b=document.getElementById('t-badge');
+  const l1=document.getElementById('t-l1'),l2=document.getElementById('t-l2');
+  const v1=document.getElementById('t-v1'),v2=document.getElementById('t-v2');
+  if(Gn>=0){b.textContent=_('Accoppiamento con gioco','Clearance fit');b.className='fit-badge badge-gioco';
+    l1.textContent=_('Gioco massimo','Max clearance');v1.textContent=(Gx*1000).toFixed(1)+' µm';
+    l2.textContent=_('Gioco minimo','Min clearance');v2.textContent=(Gn*1000).toFixed(1)+' µm';
+  }else if(Gx<=0){b.textContent=_('Accoppiamento con interferenza','Interference fit');b.className='fit-badge badge-interferenza';
+    l1.textContent=_('Interferenza massima','Max interference');v1.textContent=(-Gn*1000).toFixed(1)+' µm';
+    l2.textContent=_('Interferenza minima','Min interference');v2.textContent=(-Gx*1000).toFixed(1)+' µm';
+  }else{b.textContent=_('Accoppiamento di transizione','Transition fit');b.className='fit-badge badge-incerto';
+    l1.textContent=_('Gioco massimo','Max clearance');v1.textContent=(Gx*1000).toFixed(1)+' µm';
+    l2.textContent=_('Interferenza massima','Max interference');v2.textContent=(-Gn*1000).toFixed(1)+' µm';
+  }
+  const su=(v>=0?'+':'')+v.toFixed(1)+' µm';
+  document.getElementById('t-devtb').innerHTML=
+    `<tr><td>${_('Foro','Hole')} ${fS}</td><td>${fD.l}${fD.q}</td><td>${((fv.u>=0?'+':'')+fv.u.toFixed(1))+' µm'}</td><td>${((fv.lo>=0?'+':'')+fv.lo.toFixed(1))+' µm'}</td></tr>
+     <tr><td>${_('Albero','Shaft')} ${aS}</td><td>${aD.l}${aD.q}</td><td>${((av.u>=0?'+':'')+av.u.toFixed(1))+' µm'}</td><td>${((av.lo>=0?'+':'')+av.lo.toFixed(1))+' µm'}</td></tr>`;
+  drawViz(fv,av);
+}
+
+function drawViz(fv,av){
+  const svg=document.getElementById('t-viz');if(!svg)return;
+  const dk=document.documentElement.getAttribute('data-theme')==='dark';
+  const vals=[fv.u,fv.lo,av.u,av.lo];
+  const mn=Math.min(...vals),mx=Math.max(...vals),sp=mx-mn||10,pd2=sp*0.4;
+  const lo=mn-pd2,hi=mx+pd2,W=520;
+  const tx=v=>36+(v-lo)/(hi-lo)*(W-72);
+  const z=tx(0);
+  const fC=dk?'#7ab8e8':'#2a6496',aC=dk?'#e87a7a':'#a32d2d';
+  const fB=dk?'rgba(122,184,232,0.1)':'rgba(42,100,150,0.07)';
+  const aB=dk?'rgba(232,122,122,0.1)':'rgba(163,45,45,0.07)';
+  const gC=dk?'#2C2C2C':'#DCDCDC',tC=dk?'#BBBBBB':'#BBBBBB';
+  let s=`<line x1="${z}" y1="2" x2="${z}" y2="62" stroke="${gC}" stroke-width="1"/>`;
+  s+=`<text x="${z}" y="70" text-anchor="middle" font-size="9" fill="${tC}" font-family="IBM Plex Mono,monospace">0</text>`;
+  const fX1=tx(Math.min(fv.lo,fv.u)),fX2=tx(Math.max(fv.lo,fv.u));
+  s+=`<rect x="${fX1}" y="6" width="${Math.max(fX2-fX1,2)}" height="22" fill="${fB}" stroke="${fC}" stroke-width="1"/>`;
+  s+=`<text x="${(fX1+fX2)/2}" y="21" text-anchor="middle" font-size="9" fill="${fC}" font-family="IBM Plex Mono,monospace" letter-spacing="0.08em">FORO</text>`;
+  const aX1=tx(Math.min(av.lo,av.u)),aX2=tx(Math.max(av.lo,av.u));
+  s+=`<rect x="${aX1}" y="34" width="${Math.max(aX2-aX1,2)}" height="22" fill="${aB}" stroke="${aC}" stroke-width="1"/>`;
+  s+=`<text x="${(aX1+aX2)/2}" y="49" text-anchor="middle" font-size="9" fill="${aC}" font-family="IBM Plex Mono,monospace" letter-spacing="0.08em">ALBERO</text>`;
+  svg.innerHTML=s;
+}
+
+
+/* ════════════════════════════
+   BOLT TORQUE TOOL
+════════════════════════════ */
+const BT = {
+  M3:[3,0.5,2.675,2.387,5.03],M4:[4,0.7,3.545,3.141,8.78],M5:[5,0.8,4.480,4.019,14.2],
+  M6:[6,1.0,5.350,4.773,20.1],M8:[8,1.25,7.188,6.466,36.6],M10:[10,1.5,9.026,8.160,58.0],
+  M12:[12,1.75,10.863,9.853,84.3],M16:[16,2.0,14.701,13.546,157],M20:[20,2.5,18.376,16.933,245],
+  M24:[24,3.0,22.051,20.320,353],M30:[30,3.5,27.727,25.706,561],M36:[36,4.0,33.402,31.093,817]
+};
+const BC = {'4.6':240,'5.8':400,'8.8':640,'10.9':900,'12.9':1080, 'A2-70':490, 'A4-80':640};
+
+function buildBoltTool(lang) {
+  const _ = (it,en) => lang==='it'?it:en;
+  const sO=Object.keys(BT).map(s=>`<option${s==='M8'?' selected':''}>${s}</option>`).join('');
+  const cO=Object.keys(BC).map(c=>`<option${c==='8.8'?' selected':''}>${c}</option>`).join('');
+  return `<div class="tool-ui">
+<div class="t-row">
+  <div class="t-col" style="max-width:110px;"><label>${_('Filettatura','Thread')}</label><select id="b-sz">${sO}</select></div>
+  <div class="t-col" style="max-width:135px;"><label>${_('Classe resistenza','Strength class')}</label><select id="b-cl">${cO}</select></div>
+  <div class="t-col" style="max-width:175px;"><label>${_('Coeff. attrito μ (filetto+appoggio)','Friction coeff. μ (thread+bearing)')}</label><input type="number" id="b-mu" value="0.12" min="0.05" max="0.30" step="0.01"></div>
+  <div class="t-col" style="max-width:150px;"><label>${_('Utilizzo Rp0.2 (%)','Rp0.2 utilisation (%)')}</label><input type="number" id="b-ut" value="70" min="30" max="90" step="5"></div>
+</div>
+<div class="metrics">
+  <div class="metric"><p class="m-label">${_('Coppia di serraggio','Tightening torque')}</p><p class="m-value" id="b-ma">—</p><span class="m-unit">N·m</span></div>
+  <div class="metric"><p class="m-label">${_('Forza di precarico','Bolt preload')}</p><p class="m-value" id="b-fv">—</p><span class="m-unit">kN</span></div>
+  <div class="metric"><p class="m-label">${_('Coppia filetto M','Thread torque M_G')}</p><p class="m-value" id="b-mg">—</p><span class="m-unit">N·m</span></div>
+  <div class="metric"><p class="m-label">${_('Coppia appoggio M','Bearing torque M_K')}</p><p class="m-value" id="b-mk">—</p><span class="m-unit">N·m</span></div>
+</div>
+<div class="result-block">
+  <p class="result-title">${_('Parametri','Parameters')}</p>
+  <div class="metrics" style="margin:0 0 1rem;">
+    <div class="metric"><p class="m-label">As</p><p class="m-value" id="b-as">—</p><span class="m-unit">mm²</span></div>
+    <div class="metric"><p class="m-label">d₂</p><p class="m-value" id="b-d2">—</p><span class="m-unit">mm</span></div>
+    <div class="metric"><p class="m-label">p</p><p class="m-value" id="b-pp">—</p><span class="m-unit">mm</span></div>
+    <div class="metric"><p class="m-label">Rp0.2</p><p class="m-value" id="b-rp">—</p><span class="m-unit">MPa</span></div>
+  </div>
+  <p class="t-note">M<sub>A</sub> = M<sub>G</sub> + M<sub>K</sub> &nbsp;|&nbsp; M<sub>G</sub> = F<sub>V</sub>·(d₂/2)·tan(φ+ρ) &nbsp;|&nbsp; M<sub>K</sub> = F<sub>V</sub>·μ·d<sub>w</sub>/2<br>φ = arctan(p/π·d₂) &nbsp;|&nbsp; ρ = arctan(μ/cos30°) &nbsp;|&nbsp; d<sub>w</sub> ≈ 1.5·d</p>
+</div>
+</div>`;
+}
+
+function initBolt() {
+  ['b-sz','b-cl','b-mu','b-ut'].forEach(id => {
+    document.getElementById(id).addEventListener('change', calcBolt);
+    document.getElementById(id).addEventListener('input',  calcBolt);
+  });
+  calcBolt();
+}
+
+function calcBolt() {
+  const sz=document.getElementById('b-sz').value;
+  const cl=document.getElementById('b-cl').value;
+  const mu=parseFloat(document.getElementById('b-mu').value);
+  const ut=parseFloat(document.getElementById('b-ut').value)/100;
+  const [d,p,d2,d3,As]=BT[sz], Rp=BC[cl], dw=1.5*d;
+  const Fv=As*Rp*ut;
+  const phi=Math.atan(p/(Math.PI*d2));
+  const rho=Math.atan(mu/Math.cos(30*Math.PI/180));
+  const Mg=Fv*(d2/2)*Math.tan(phi+rho);
+  const Mk=Fv*mu*dw/2;
+  const Ma=Mg+Mk;
+  document.getElementById('b-ma').textContent=(Ma/1000).toFixed(2);
+  document.getElementById('b-fv').textContent=(Fv/1000).toFixed(2);
+  document.getElementById('b-mg').textContent=(Mg/1000).toFixed(2);
+  document.getElementById('b-mk').textContent=(Mk/1000).toFixed(2);
+  document.getElementById('b-as').textContent=As.toFixed(1);
+  document.getElementById('b-d2').textContent=d2.toFixed(3);
+  document.getElementById('b-pp').textContent=p.toFixed(2);
+  document.getElementById('b-rp').textContent=Rp;
+}
+</script>
+</body>
+</html>
