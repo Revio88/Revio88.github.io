@@ -295,7 +295,6 @@
       </label>
     </div>
   </div>
-
   <!-- PAGE HEADER -->
   <div class="page-header">
     <p class="label">Tools · 2026</p>
@@ -327,8 +326,10 @@
           <span class="tag"><span class="i" data-l="it">Accoppiamenti</span><span class="i" data-l="en" style="display:none">Fits</span></span>
         </div>
       </div>
-      <div class="tool-action">
-        <button class="open-btn" onclick="openTool('iso-fit')" data-it="Apri" data-en="Open">Apri</button>
+      <div>
+        <button class="open-btn" onclick="openTool('iso-fit')">
+          <span class="i" data-l="it">Apri</span><span class="i" data-l="en" style="display:none">Open</span>
+        </button>
       </div>
     </div>
 
@@ -355,7 +356,29 @@
       </div>
     </div>
 
-    <!-- CLAMP (coming soon) -->
+    <!-- HELICAL GEAR -->
+    <div class="tool-item">
+      <div>
+        <p class="tool-name">
+          <span class="i" data-l="it">Angolo elica ingranaggio</span>
+          <span class="i" data-l="en" style="display:none">Helical gear helix angle</span>
+        </p>
+        <p class="tool-desc i" data-l="it">Calcola l'angolo dell'elica β di un ingranaggio elicoidale a partire dal diametro primitivo, numero di denti e modulo normale. Restituisce anche il modulo frontale e il diametro di base.</p>
+        <p class="tool-desc i" data-l="en" style="display:none">Calculate the helix angle β of a helical gear from pitch diameter, number of teeth and normal module. Also returns the transverse module and base diameter.</p>
+        <div class="tag-list">
+          <span class="tag">ISO 21771</span>
+          <span class="tag"><span class="i" data-l="it">Ingranaggi</span><span class="i" data-l="en" style="display:none">Gears</span></span>
+          <span class="tag"><span class="i" data-l="it">Dentatura elicoidale</span><span class="i" data-l="en" style="display:none">Helical teeth</span></span>
+        </div>
+      </div>
+      <div class="tool-action">
+        <button class="open-btn" onclick="openTool('helical-gear')">
+          <span class="i" data-l="it">Apri</span><span class="i" data-l="en" style="display:none">Open</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- COMING SOON -->
     <div class="tool-item">
       <div>
         <p class="tool-norm"><span class="i" data-l="it">In arrivo</span><span class="i" data-l="en" style="display:none">Coming soon</span></p>
@@ -366,8 +389,8 @@
         <p class="tool-desc i" data-l="it">_</p>
         <p class="tool-desc i" data-l="en" style="display:none">_</p>
         <div class="tag-list">
-
-        </div>
+		
+		</div>		  
       </div>
       <div>
         <button class="open-btn soon" disabled>
@@ -438,6 +461,10 @@ function openTool(id) {
     title.textContent = lang === 'it' ? 'Coppia di serraggio bulloni' : 'Bolt tightening torque';
     body.innerHTML = buildBoltTool(lang);
     initBolt();
+  } else if (id === 'helical-gear') {
+    title.textContent = lang === 'it' ? 'Angolo elica ingranaggio' : 'Helical gear helix angle';
+    body.innerHTML = buildHelicalTool(lang);
+    initHelical();
   }
   overlay.classList.add('open');
 }
@@ -646,6 +673,129 @@ function initBolt() {
     document.getElementById(id).addEventListener('input',  calcBolt);
   });
   calcBolt();
+}
+
+
+
+/* ════════════════════════════
+   HELICAL GEAR TOOL
+════════════════════════════ */
+function buildHelicalTool(lang) {
+  const _ = (it, en) => lang === 'it' ? it : en;
+  return `<div class="tool-ui">
+<div class="t-row">
+  <div class="t-col" style="max-width:180px;">
+    <label>${_('Diametro primitivo d (mm)', 'Pitch diameter d (mm)')}</label>
+    <input type="number" id="g-dp" value="80" min="0.1" step="0.01">
+  </div>
+  <div class="t-col" style="max-width:150px;">
+    <label>${_('Numero di denti z', 'Number of teeth z')}</label>
+    <input type="number" id="g-z" value="20" min="1" step="1">
+  </div>
+  <div class="t-col" style="max-width:160px;">
+    <label>${_('Modulo normale m\u2099 (mm)', 'Normal module m\u2099 (mm)')}</label>
+    <input type="number" id="g-mn" value="3" min="0.1" step="0.01">
+  </div>
+</div>
+<div id="g-err" class="t-err" style="display:none;"></div>
+<div id="g-res">
+  <div class="metrics">
+    <div class="metric">
+      <p class="m-label">${_('Angolo elica \u03b2', 'Helix angle \u03b2')}</p>
+      <p class="m-value" id="g-beta">—</p>
+      <span class="m-unit">°</span>
+    </div>
+    <div class="metric">
+      <p class="m-label">${_('Modulo frontale m\u209c', 'Transverse module m\u209c')}</p>
+      <p class="m-value" id="g-mt">—</p>
+      <span class="m-unit">mm</span>
+    </div>
+    <div class="metric">
+      <p class="m-label">${_('Diametro di base d\u1d47', 'Base diameter d\u1d47')}</p>
+      <p class="m-value" id="g-db">—</p>
+      <span class="m-unit">mm</span>
+    </div>
+    <div class="metric">
+      <p class="m-label">${_('Angolo pressione frontale \u03b1\u209c', 'Transverse pressure angle \u03b1\u209c')}</p>
+      <p class="m-value" id="g-at">—</p>
+      <span class="m-unit">°</span>
+    </div>
+  </div>
+  <div class="result-block">
+    <p class="result-title">${_('Schema calcolo', 'Calculation scheme')}</p>
+    <p class="t-note">
+      m\u209c = d / z &nbsp;|&nbsp; \u03b2 = arccos(m\u2099 / m\u209c)<br>
+      \u03b1\u209c = arctan(tan\u03b1\u2099 / cos\u03b2) &nbsp; con &nbsp; \u03b1\u2099 = 20°<br>
+      d\u1d47 = d · cos\u03b1\u209c
+    </p>
+    <hr class="t-divider" style="margin:0.9rem 0 0.75rem;">
+    <p class="t-note" id="g-note" style="color:var(--ink-3);"></p>
+  </div>
+</div>
+</div>`;
+}
+
+function initHelical() {
+  ['g-dp', 'g-z', 'g-mn'].forEach(id => {
+    document.getElementById(id).addEventListener('input', calcHelical);
+  });
+  calcHelical();
+}
+
+function calcHelical() {
+  const lang = localStorage.getItem('lang') || 'it';
+  const _ = (it, en) => lang === 'it' ? it : en;
+
+  const dp = parseFloat(document.getElementById('g-dp').value);
+  const z  = parseInt(document.getElementById('g-z').value);
+  const mn = parseFloat(document.getElementById('g-mn').value);
+  const err = document.getElementById('g-err');
+  const res = document.getElementById('g-res');
+
+  // Validation
+  if (isNaN(dp) || dp <= 0 || isNaN(z) || z < 1 || isNaN(mn) || mn <= 0) {
+    err.textContent = _('Inserire valori positivi validi.', 'Please enter valid positive values.');
+    err.style.display = ''; res.style.display = 'none'; return;
+  }
+
+  const mt = dp / z;                        // modulo frontale
+  const ratio = mn / mt;
+
+  if (ratio > 1.0 + 1e-9) {
+    err.textContent = _('Errore: m\u2099 > m\u209c — il modulo normale non può essere maggiore del modulo frontale.',
+                        'Error: m\u2099 > m\u209c — normal module cannot exceed transverse module.');
+    err.style.display = ''; res.style.display = 'none'; return;
+  }
+
+  err.style.display = 'none'; res.style.display = '';
+
+  const betaRad = Math.acos(Math.min(ratio, 1));   // β in rad
+  const betaDeg = betaRad * 180 / Math.PI;
+
+  const alphaN = 20 * Math.PI / 180;               // angolo pressione normale (standard 20°)
+  const atRad  = Math.atan(Math.tan(alphaN) / Math.cos(betaRad));
+  const atDeg  = atRad * 180 / Math.PI;
+  const db     = dp * Math.cos(atRad);
+
+  document.getElementById('g-beta').textContent = betaDeg.toFixed(4);
+  document.getElementById('g-mt').textContent   = mt.toFixed(4);
+  document.getElementById('g-db').textContent   = db.toFixed(3);
+  document.getElementById('g-at').textContent   = atDeg.toFixed(4);
+
+  // Nota descrittiva
+  let note = '';
+  if (betaDeg < 0.05) {
+    note = _('β ≈ 0° — dentatura diritta (spur gear).', 'β ≈ 0° — straight spur gear.');
+  } else if (betaDeg < 8) {
+    note = _('Angolo elica basso (< 8°): ridotta componente assiale.', 'Low helix angle (< 8°): reduced axial thrust component.');
+  } else if (betaDeg <= 20) {
+    note = _('Angolo elica tipico per trasmissioni di potenza (8–20°).', 'Typical helix angle for power transmission gears (8–20°).');
+  } else if (betaDeg <= 35) {
+    note = _('Angolo elica elevato: maggiore silenziosità, spinta assiale significativa.', 'High helix angle: lower noise, significant axial thrust — check bearing loads.');
+  } else {
+    note = _('Angolo elica molto elevato (> 35°): verificare carichi assiali sui supporti.', 'Very high helix angle (> 35°): verify axial loads on bearings.');
+  }
+  document.getElementById('g-note').textContent = note;
 }
 
 function calcBolt() {
