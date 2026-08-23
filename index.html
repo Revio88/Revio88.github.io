@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html lang="it" data-theme="light">
 <head>
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XB9VLH9E30"></script>
+	<!-- Google Consent Mode v2 — default: nessun consenso finché l'utente non sceglie -->
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
+		gtag('consent', 'default', {
+			'ad_storage': 'denied',
+			'ad_user_data': 'denied',
+			'ad_personalization': 'denied',
+			'analytics_storage': 'denied',
+			'wait_for_update': 500
+		});
+	</script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XB9VLH9E30"></script>
+	<script>
 		gtag('js', new Date());
-
 		gtag('config', 'G-XB9VLH9E30');
 	</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Federico Reviati — Progettista Meccanico</title>
+  <meta name="description" content="Federico Reviati, progettista meccanico freelance a Parma. Oltre 15 anni di esperienza in macchine automatiche e componenti stampati a iniezione. Disponibile per collaborazioni." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -31,6 +41,7 @@
       --tag-hover:   #222222;
       --tag-hover-c: #FFFFFF;
       --green:       #4A8C5C;
+      --err:         #C1443C;
       --toggle-bg:   #CCCCCC;
       --toggle-on:   #555555;
     }
@@ -47,6 +58,7 @@
       --tag-hover:   #E0E0E0;
       --tag-hover-c: #111111;
       --green:       #5AAF73;
+      --err:         #E0655C;
       --toggle-bg:   #555555;
       --toggle-on:   #AAAAAA;
     }
@@ -512,6 +524,131 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── COOKIE BANNER ── */
+    .cookie-banner {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 999;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      padding: 1.1rem 2rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    }
+    .cookie-banner.show { display: flex; }
+    .cookie-text {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.78rem;
+      color: var(--ink-2);
+      max-width: 560px;
+      line-height: 1.5;
+    }
+    .cookie-text a { color: var(--ink); text-decoration: underline; }
+    .cookie-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+    .cookie-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.55rem 1rem;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--ink-2);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .cookie-btn:hover { background: var(--tag-bg); }
+    .cookie-btn.primary {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+    .cookie-btn.primary:hover { opacity: 0.85; }
+
+    @media (max-width: 680px) {
+      .cookie-banner { padding: 1rem 1.25rem; justify-content: flex-start; }
+      .cookie-actions { width: 100%; }
+      .cookie-btn { flex: 1; }
+    }
+
+    /* ── CONTACT FORM ── */
+    .contact-section {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .contact-form { max-width: 640px; }
+
+    .form-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+    .form-group {
+      flex: 1 1 220px;
+      margin-bottom: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+
+    .form-input, .form-textarea {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--ink);
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.75rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .form-input:focus, .form-textarea:focus { border-color: var(--ink-3); }
+    .form-textarea { resize: vertical; }
+
+    .form-footer {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .form-submit {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.3rem;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--bg);
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .form-submit:hover { opacity: 0.85; }
+    .form-submit:disabled { opacity: 0.5; cursor: default; }
+
+    .form-status {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--ink-3);
+    }
+    .form-status.ok { color: var(--green); }
+    .form-status.err { color: var(--err); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 680px) {
       header { grid-template-columns: 1fr; }
@@ -843,9 +980,76 @@
     </div>
   </div>
 
+  <!-- CONTACT FORM -->
+  <section class="contact-section" id="contact">
+    <p class="section-label">
+      <span class="i" data-l="it">Contattami</span>
+      <span class="i" data-l="en" style="display:none">Get in touch</span>
+    </p>
+    <form class="contact-form" id="contactForm" novalidate>
+      <input type="hidden" name="access_key" value="263404bc-3ff2-4ebc-96ac-a6df86138562">
+      <input type="hidden" name="subject" value="Nuovo messaggio dal sito - Federico Reviati">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label i" data-l="it" for="cf-name">Nome</label>
+          <label class="form-label i" data-l="en" style="display:none" for="cf-name">Name</label>
+          <input type="text" id="cf-name" name="name" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" class="form-input" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label i" data-l="it" for="cf-message">Messaggio</label>
+        <label class="form-label i" data-l="en" style="display:none" for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" class="form-textarea" rows="5" required></textarea>
+      </div>
+
+      <div class="form-footer">
+        <button type="submit" class="form-submit" id="cf-submit">
+          <span class="i" data-l="it">Invia messaggio</span>
+          <span class="i" data-l="en" style="display:none">Send message</span>
+        </button>
+        <p class="form-status" id="cf-status"></p>
+      </div>
+    </form>
+  </section>
+
   <footer>
     <span class="footer-copy">© 2026 Federico Reviati</span>
+    <span class="footer-copy">
+      <a href="privacy.html" style="color:inherit; text-decoration:underline;">
+        <span class="i" data-l="it">Privacy Policy</span>
+        <span class="i" data-l="en" style="display:none">Privacy Policy</span>
+      </a>
+      · <button id="cookieSettingsBtn" style="background:none; border:none; color:inherit; font:inherit; text-decoration:underline; cursor:pointer; padding:0;">
+        <span class="i" data-l="it">Preferenze cookie</span>
+        <span class="i" data-l="en" style="display:none">Cookie preferences</span>
+      </button>
+    </span>
   </footer>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie-banner" id="cookieBanner">
+    <p class="cookie-text">
+      <span class="i" data-l="it">Questo sito utilizza cookie tecnici e, previo consenso, cookie di analisi (Google Analytics) e di misurazione per la pubblicità (Google Ads). Puoi accettarli tutti o continuare solo con i cookie necessari. Maggiori informazioni nella <a href="privacy.html">Privacy Policy</a>.</span>
+      <span class="i" data-l="en" style="display:none">This site uses technical cookies and, subject to consent, analytics (Google Analytics) and advertising measurement (Google Ads) cookies. You can accept all or continue with necessary cookies only. More details in the <a href="privacy.html">Privacy Policy</a>.</span>
+    </p>
+    <div class="cookie-actions">
+      <button class="cookie-btn" id="cookieRejectBtn">
+        <span class="i" data-l="it">Solo necessari</span>
+        <span class="i" data-l="en" style="display:none">Necessary only</span>
+      </button>
+      <button class="cookie-btn primary" id="cookieAcceptBtn">
+        <span class="i" data-l="it">Accetta tutti</span>
+        <span class="i" data-l="en" style="display:none">Accept all</span>
+      </button>
+    </div>
+  </div>
 
 </div>
 
@@ -875,6 +1079,114 @@
     if (t) document.documentElement.setAttribute('data-theme', t);
     const l = localStorage.getItem('lang');
     if (l && l !== 'it') setLang(l);
+  })();
+
+  // ── Cookie consent ──
+  const CONSENT_KEY = 'cookie_consent'; // 'granted' | 'denied'
+  const banner = document.getElementById('cookieBanner');
+
+  function applyConsent(choice) {
+    if (choice === 'granted') {
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+      });
+    } else {
+      gtag('consent', 'update', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied'
+      });
+    }
+  }
+
+  function showBanner() {
+    banner.classList.add('show');
+  }
+  function hideBanner() {
+    banner.classList.remove('show');
+  }
+
+  (function initConsent() {
+    const params = new URLSearchParams(window.location.search);
+    const forceOpen = params.get('cookie-settings') === '1';
+
+    const stored = localStorage.getItem(CONSENT_KEY);
+    if (stored && !forceOpen) {
+      applyConsent(stored);
+    } else {
+      showBanner();
+    }
+  })();
+
+  document.getElementById('cookieAcceptBtn').addEventListener('click', function() {
+    localStorage.setItem(CONSENT_KEY, 'granted');
+    applyConsent('granted');
+    hideBanner();
+  });
+
+  document.getElementById('cookieRejectBtn').addEventListener('click', function() {
+    localStorage.setItem(CONSENT_KEY, 'denied');
+    applyConsent('denied');
+    hideBanner();
+  });
+
+  document.getElementById('cookieSettingsBtn').addEventListener('click', function() {
+    showBanner();
+  });
+
+  // ── Contact form (Web3Forms) ──
+  (function() {
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('cf-status');
+    const btn = document.getElementById('cf-submit');
+
+    const MSG = {
+      sending: { it: 'Invio in corso…', en: 'Sending…' },
+      ok:      { it: 'Messaggio inviato, grazie! Ti risponderò al più presto.', en: 'Message sent, thank you! I will reply as soon as possible.' },
+      err:     { it: 'Si è verificato un errore. Riprova oppure scrivimi a federico@reviati.com.', en: 'Something went wrong. Please retry or email me at federico@reviati.com.' }
+    };
+
+    function currentLang() {
+      return document.documentElement.lang === 'en' ? 'en' : 'it';
+    }
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const lang = currentLang();
+
+      btn.disabled = true;
+      status.className = 'form-status';
+      status.textContent = MSG.sending[lang];
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          status.classList.add('ok');
+          status.textContent = MSG.ok[lang];
+          form.reset();
+          if (typeof gtag === 'function') {
+            gtag('event', 'generate_lead', { event_category: 'contact_form' });
+          }
+        } else {
+          throw new Error(data.message || 'submit failed');
+        }
+      } catch (err) {
+        status.classList.add('err');
+        status.textContent = MSG.err[lang];
+      } finally {
+        btn.disabled = false;
+      }
+    });
   })();
 </script>
 </body>
