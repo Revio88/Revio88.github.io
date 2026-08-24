@@ -603,6 +603,12 @@
       color: var(--ink-3);
     }
 
+    .form-optional {
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--ink-4);
+    }
+
     .form-input, .form-textarea {
       font-family: 'IBM Plex Sans', sans-serif;
       font-size: 0.85rem;
@@ -1000,6 +1006,19 @@
         <div class="form-group">
           <label class="form-label" for="cf-email">Email</label>
           <input type="email" id="cf-email" name="email" class="form-input" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label i" data-l="it" for="cf-phone">Telefono <span class="form-optional">(facoltativo)</span></label>
+          <label class="form-label i" data-l="en" style="display:none" for="cf-phone">Phone <span class="form-optional">(optional)</span></label>
+          <input type="tel" id="cf-phone" name="phone" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label i" data-l="it" for="cf-company">Azienda <span class="form-optional">(facoltativo)</span></label>
+          <label class="form-label i" data-l="en" style="display:none" for="cf-company">Company <span class="form-optional">(optional)</span></label>
+          <input type="text" id="cf-company" name="company" class="form-input">
         </div>
       </div>
 
