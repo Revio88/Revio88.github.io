@@ -23,6 +23,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Federico Reviati — Progettista Meccanico</title>
   <meta name="description" content="Federico Reviati, progettista meccanico freelance a Parma. Oltre 15 anni di esperienza in macchine automatiche e componenti stampati a iniezione. Disponibile per collaborazioni." />
+  <link rel="canonical" href="https://reviati.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Federico Reviati" />
+  <meta property="og:title" content="Federico Reviati — Progettista Meccanico" />
+  <meta property="og:description" content="Progettista meccanico freelance a Parma. Oltre 15 anni di esperienza in macchine automatiche e componenti stampati a iniezione." />
+  <meta property="og:url" content="https://reviati.com/" />
+  <meta property="og:image" content="https://reviati.com/fotoprof.jpg" />
+  <meta property="og:locale" content="it_IT" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Federico Reviati — Progettista Meccanico" />
+  <meta name="twitter:description" content="Progettista meccanico freelance a Parma. Oltre 15 anni di esperienza in macchine automatiche e componenti stampati a iniezione." />
+  <meta name="twitter:image" content="https://reviati.com/fotoprof.jpg" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -416,33 +433,6 @@
     .contact-link:hover { color: var(--ink); }
     .contact-link svg { opacity: 0.4; flex-shrink: 0; transition: opacity 0.15s; }
     .contact-link:hover svg { opacity: 1; }
-
-    .availability {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      padding: 0.6rem 0.8rem;
-      border: 1px solid var(--border);
-      background: var(--bg-2);
-    }
-
-    .dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      flex-shrink: 0;
-      animation: pulse 2.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.35; }
-    }
 
     .info-line {
       display: flex;
@@ -891,14 +881,18 @@
     <div class="col-side">
 
       <div class="side-section">
-        <div class="availability">
-          <span class="dot"></span>
-          <span class="i" data-l="it">Disponibile per collaborazioni</span>
-          <span class="i" data-l="en" style="display:none">Available for projects</span>
+        <p class="section-label">
+          <span class="i" data-l="it">Settori principali</span>
+          <span class="i" data-l="en" style="display:none">Key Industries</span>
+        </p>
+        <div class="tag-list">
+          <span class="tag hi">Automotive</span>
+          <span class="tag hi i" data-l="it">Dispositivi Medicali</span>
+          <span class="tag hi i" data-l="en" style="display:none">Medical Devices</span>
+          <span class="tag hi i" data-l="it">Macchine Automatiche</span>
+          <span class="tag hi i" data-l="en" style="display:none">Automated Machinery</span>
         </div>
       </div>
-
-
 
       <div class="side-section">
         <p class="section-label">
