@@ -1160,7 +1160,8 @@
     const MSG = {
       sending: { it: 'Invio in corso…', en: 'Sending…' },
       ok:      { it: 'Messaggio inviato, grazie! Ti risponderò al più presto.', en: 'Message sent, thank you! I will reply as soon as possible.' },
-      err:     { it: 'Si è verificato un errore. Riprova oppure scrivimi a federico@reviati.com.', en: 'Something went wrong. Please retry or email me at federico@reviati.com.' }
+      err:     { it: 'Si è verificato un errore. Riprova oppure scrivimi a federico@reviati.com.', en: 'Something went wrong. Please retry or email me at federico@reviati.com.' },
+      invalid: { it: 'Compila i campi obbligatori (nome, email, messaggio) prima di inviare.', en: 'Please fill in the required fields (name, email, message) before sending.' }
     };
 
     function currentLang() {
@@ -1170,6 +1171,17 @@
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       const lang = currentLang();
+
+      const nameVal = form.elements['name'].value.trim();
+      const emailVal = form.elements['email'].value.trim();
+      const messageVal = form.elements['message'].value.trim();
+
+      if (!form.checkValidity() || !nameVal || !emailVal || !messageVal) {
+        form.reportValidity();
+        status.className = 'form-status err';
+        status.textContent = MSG.invalid[lang];
+        return;
+      }
 
       btn.disabled = true;
       status.className = 'form-status';
