@@ -1,1133 +1,391 @@
 <!DOCTYPE html>
-<html lang="it" data-theme="light">
+<html lang="it">
 <head>
-	<!-- Google Consent Mode v2 — default: nessun consenso finché l'utente non sceglie -->
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('consent', 'default', {
-			'ad_storage': 'denied',
-			'ad_user_data': 'denied',
-			'ad_personalization': 'denied',
-			'analytics_storage': 'denied',
-			'wait_for_update': 500
-		});
-	</script>
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XB9VLH9E30"></script>
-	<script>
-		gtag('js', new Date());
-		gtag('config', 'G-XB9VLH9E30');
-	</script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Federico Reviati — Progettista Meccanico</title>
-  <meta name="description" content="Federico Reviati, progettista meccanico freelance a Parma. Oltre 15 anni di esperienza in macchine automatiche e componenti stampati a iniezione. Disponibile per collaborazioni." />
-  <link rel="canonical" href="https://reviati.com/" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Federico Reviati" />
-  <meta property="og:title" content="Federico Reviati — Progettista Meccanico" />
-  <meta property="og:description" content="Progettista meccanico freelance a Parma. Oltre 15 anni di esperienza in macchine automatiche e componenti stampati a iniezione." />
-  <meta property="og:url" content="https://reviati.com/" />
-  <meta property="og:image" content="https://reviati.com/fotoprof.jpg" />
-  <meta property="og:locale" content="it_IT" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Federico Reviati — Progettista Meccanico" />
-  <meta name="twitter:description" content="Progettista meccanico freelance a Parma. Oltre 15 anni di esperienza in macchine automatiche e componenti stampati a iniezione." />
-  <meta name="twitter:image" content="https://reviati.com/fotoprof.jpg" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:          #F8F8F8;
-      --bg-2:        #EFEFEF;
-      --border:      #DCDCDC;
-      --ink:         #111111;
-      --ink-2:       #444444;
-      --ink-3:       #555555;
-      --ink-4:       #BBBBBB;
-      --tag-bg:      #EBEBEB;
-      --tag-hover:   #222222;
-      --tag-hover-c: #FFFFFF;
-      --green:       #4A8C5C;
-      --err:         #C1443C;
-      --toggle-bg:   #CCCCCC;
-      --toggle-on:   #555555;
-    }
-
-    [data-theme="dark"] {
-      --bg:          #111111;
-      --bg-2:        #1A1A1A;
-      --border:      #2C2C2C;
-      --ink:         #F0F0F0;
-      --ink-2:       #CCCCCC;
-      --ink-3:       #BBBBBB;
-      --ink-4:       #BBBBBB;
-      --tag-bg:      #222222;
-      --tag-hover:   #E0E0E0;
-      --tag-hover-c: #111111;
-      --green:       #5AAF73;
-      --err:         #E0655C;
-      --toggle-bg:   #555555;
-      --toggle-on:   #AAAAAA;
-    }
-
-	[data-theme="dark"] body {
-		font-weight: 400;  /* era 300 — prova 400 */
-		-webkit-font-smoothing: antialiased;
-	}
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 300;
-      min-height: 100vh;
-      overflow-x: hidden;
-      transition: background 0.25s, color 0.25s;
-    }
-
-    .page {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* ── TOP BAR ── */
-    .topbar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 1.25rem;
-      padding: 1.1rem 0;
-      border-bottom: 1px solid var(--border);
-      opacity: 0;
-      animation: fadeUp 0.6s ease forwards 0s;
-    }
-
-    .lang-switch {
-      display: flex;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .lang-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.64rem;
-      letter-spacing: 0.12em;
-      padding: 0.28rem 0.65rem;
-      color: var(--ink-3);
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .lang-btn.active {
-      background: var(--ink);
-      color: var(--bg);
-    }
-
-    .lang-btn:not(.active):hover {
-      background: var(--tag-bg);
-      color: var(--ink);
-    }
-
-    .theme-toggle {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .theme-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-    }
-
-    .toggle-track {
-      width: 34px;
-      height: 18px;
-      background: var(--toggle-bg);
-      border-radius: 9px;
-      position: relative;
-      transition: background 0.25s;
-      flex-shrink: 0;
-    }
-
-    .toggle-track::after {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--bg);
-      transition: transform 0.25s;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
-    }
-
-    [data-theme="dark"] .toggle-track { background: var(--toggle-on); }
-    [data-theme="dark"] .toggle-track::after { transform: translateX(16px); }
-
-    /* ── HEADER ── */
-    header {
-      padding: 3rem 0 2.5rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: start;
-      gap: 2rem;
-      border-bottom: 1px solid var(--border);
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.1s;
-    }
-
-    .label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
-      font-weight: 300;
-      line-height: 1.08;
-      letter-spacing: -0.025em;
-      color: var(--ink);
-    }
-
-    h1 strong { font-weight: 500; }
-
-    .title-role {
-      margin-top: 0.9rem;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-    }
-
-    .photo {
-      width: 108px;
-      height: 138px;
-      border: 1px solid var(--border);
-      background: var(--bg-2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      flex-shrink: 0;
-    }
-
-    .photo svg { opacity: 0.25; }
-
-    .photo span {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-4);
-    }
-
-    /* ── META BAR ── */
-    .meta-bar {
-      display: flex;
-      gap: 2rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border);
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 0.2s;
-    }
-
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.67rem;
-      color: var(--ink-3);
-      letter-spacing: 0.04em;
-    }
-
-    .meta-item svg { opacity: 0.45; flex-shrink: 0; }
-
-    /* ── MAIN GRID ── */
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 270px;
-      padding: 3rem 0;
-    }
-
-    .col-main {
-      padding-right: 3rem;
-      border-right: 1px solid var(--border);
-    }
-
-    .col-side { padding-left: 2.5rem; }
-
-    /* ── SECTIONS ── */
-    section {
-      margin-bottom: 2.8rem;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards;
-    }
-    section:nth-child(1) { animation-delay: 0.3s; }
-    section:nth-child(2) { animation-delay: 0.4s; }
-
-    .section-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .bio {
-      font-size: 0.95rem;
-      font-weight: 300;
-      line-height: 1.85;
-      color: var(--ink-2);
-    }
-
-    .bio strong { font-weight: 500; color: var(--ink); }
-
-    /* ── EXP ── */
-    .exp-item {
-      padding: 1.2rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .exp-item:last-child { border-bottom: none; }
-
-    .exp-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .exp-company { font-size: 0.95rem; font-weight: 500; color: var(--ink); }
-
-    .exp-years {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      color: var(--ink-4);
-      white-space: nowrap;
-    }
-
-    .exp-role {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.64rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      margin-bottom: 0.55rem;
-    }
-
-    .exp-desc {
-      font-size: 0.82rem;
-      font-weight: 300;
-      line-height: 1.75;
-      color: var(--ink-3);
-    }
-
-    .exp-desc ul {
-      margin: 0.55rem 0 0 1rem;
-      padding-left: 1.05rem;
-      color: var(--ink-3);
-      list-style-type: disc;
-    }
-
-    .exp-desc li {
-      margin-bottom: 0.4rem;
-    }
-
-    .exp-desc ul ul {
-      margin-top: 0.25rem;
-      margin-left: 1rem;
-      list-style-type: circle;
-    }
-
-    /* ── SIDE ── */
-    .side-section {
-      margin-bottom: 2.2rem;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards;
-    }
-    .side-section:nth-child(1) { animation-delay: 0.35s; }
-    .side-section:nth-child(2) { animation-delay: 0.45s; }
-    .side-section:nth-child(3) { animation-delay: 0.55s; }
-    .side-section:nth-child(4) { animation-delay: 0.65s; }
-    .side-section:nth-child(5) { animation-delay: 0.72s; }
-    .side-section:nth-child(6) { animation-delay: 0.78s; }
-    .side-section:nth-child(7) { animation-delay: 0.85s; }
-
-    .tag-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-
-    .tag {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.04em;
-      padding: 0.28rem 0.55rem;
-      border: 1px solid var(--border);
-      background: var(--tag-bg);
-      color: var(--ink-3);
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
-      cursor: default;
-    }
-
-    .tag:hover, .tag.hi {
-      background: var(--tag-hover);
-      color: var(--tag-hover-c);
-      border-color: var(--tag-hover);
-    }
-
-    .contact-list { display: flex; flex-direction: column; }
-
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--ink-3);
-      text-decoration: none;
-      letter-spacing: 0.03em;
-      padding: 0.65rem 0;
-      border-bottom: 1px solid var(--border);
-      transition: color 0.15s;
-    }
-    .contact-link:last-child { border-bottom: none; }
-    .contact-link:hover { color: var(--ink); }
-    .contact-link svg { opacity: 0.4; flex-shrink: 0; transition: opacity 0.15s; }
-    .contact-link:hover svg { opacity: 1; }
-
-    .info-line {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.78rem;
-    }
-    .info-line:last-child { border-bottom: none; }
-    .info-line span:first-child { color: var(--ink-2); }
-    .info-line span:last-child {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--ink-4);
-    }
-
-    /* Side projects placeholder */
-    .sp-banner {
-      border: 1px dashed var(--border);
-      padding: 0.9rem 1rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-
-    .sp-banner svg { opacity: 0.45; flex-shrink: 0; }
-
-    .sp-banner:hover {
-      background: var(--tag-bg);
-      border-color: var(--ink-3);
-    }
-
-    .sp-text {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.05em;
-      color: var(--ink-4);
-      line-height: 1.6;
-    }
-
-    .sp-text strong {
-      display: block;
-      color: var(--ink-3);
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-bottom: 0.25rem;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 1.5rem 0 3rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards 1s;
-    }
-
-    .footer-copy {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      color: var(--ink-4);
-      text-transform: uppercase;
-    }
-
-    .footer-motto {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem;
-      font-style: italic;
-      color: var(--ink-4);
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── COOKIE BANNER ── */
-    .cookie-banner {
-      position: fixed;
-      left: 0; right: 0; bottom: 0;
-      z-index: 999;
-      background: var(--bg-2);
-      border-top: 1px solid var(--border);
-      padding: 1.1rem 2rem;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
-    }
-    .cookie-banner.show { display: flex; }
-    .cookie-text {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 0.78rem;
-      color: var(--ink-2);
-      max-width: 560px;
-      line-height: 1.5;
-    }
-    .cookie-text a { color: var(--ink); text-decoration: underline; }
-    .cookie-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
-    .cookie-btn {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.64rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.55rem 1rem;
-      border: 1px solid var(--border);
-      background: none;
-      color: var(--ink-2);
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
-    }
-    .cookie-btn:hover { background: var(--tag-bg); }
-    .cookie-btn.primary {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
-    }
-    .cookie-btn.primary:hover { opacity: 0.85; }
-
-    @media (max-width: 680px) {
-      .cookie-banner { padding: 1rem 1.25rem; justify-content: flex-start; }
-      .cookie-actions { width: 100%; }
-      .cookie-btn { flex: 1; }
-    }
-
-    /* ── CONTACT FORM ── */
-    .contact-section {
-      padding: 3rem 0;
-      border-top: 1px solid var(--border);
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards;
-    }
-
-    .contact-form { max-width: 640px; }
-
-    .form-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-
-    .form-group {
-      flex: 1 1 220px;
-      margin-bottom: 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .form-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-    }
-
-    .form-optional {
-      text-transform: none;
-      letter-spacing: 0;
-      color: var(--ink-4);
-    }
-
-    .form-input, .form-textarea {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 300;
-      color: var(--ink);
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      padding: 0.6rem 0.75rem;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    .form-input:focus, .form-textarea:focus { border-color: var(--ink-3); }
-    .form-textarea { resize: vertical; }
-
-    .form-footer {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      margin-top: 0.5rem;
-    }
-
-    .form-submit {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.64rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.65rem 1.3rem;
-      border: 1px solid var(--ink);
-      background: var(--ink);
-      color: var(--bg);
-      cursor: pointer;
-      transition: opacity 0.15s;
-    }
-    .form-submit:hover { opacity: 0.85; }
-    .form-submit:disabled { opacity: 0.5; cursor: default; }
-
-    .form-status {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--ink-3);
-    }
-    .form-status.ok { color: var(--green); }
-    .form-status.err { color: var(--err); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 680px) {
-      header { grid-template-columns: 1fr; }
-      .photo { display: none; }
-      .main-grid { grid-template-columns: 1fr; }
-      .col-main { padding-right: 0; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 2.5rem; margin-bottom: 2.5rem; }
-      .col-side { padding-left: 0; }
-      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Federico Reviati — Progettista Meccanico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: #121212; color: #F0F0F0; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; -webkit-font-smoothing: antialiased; }
+  a { color: #F0F0F0; }
+  a:hover { color: #FFFFFF; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+</style>
 </head>
 <body>
-<div class="page">
+<div style="max-width:920px;margin:0 auto;padding:0 clamp(1.25rem,5vw,2rem);">
 
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <div class="lang-switch" role="group" aria-label="Lingua / Language">
-      <button class="lang-btn active" id="btn-it" onclick="setLang('it')">IT</button>
-      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  <div style="display:flex;justify-content:flex-end;align-items:center;gap:1.25rem;padding:1.1rem 0;border-bottom:1px solid #2C2C2C;">
+    <div style="display:flex;border:1px solid #2C2C2C;border-radius:2px;overflow:hidden;">
+      <button data-lang-btn="it" style="background:#F0F0F0;color:#121212;border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:0.64rem;letter-spacing:0.12em;padding:0.75rem 1rem;min-height:44px;">IT</button>
+      <button data-lang-btn="en" style="background:transparent;color:#B4B4B4;border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:0.64rem;letter-spacing:0.12em;padding:0.75rem 1rem;min-height:44px;">EN</button>
     </div>
-    <label class="theme-toggle" aria-label="Dark mode">
-      <span class="theme-label i" data-l="it">Dark theme</span>
-      <span class="theme-label i" data-l="en" style="display:none">Dark mode</span>
-      <div class="toggle-track" id="themeTrack" role="switch" tabindex="0"
-           onclick="toggleTheme()" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTheme()"></div>
-    </label>
   </div>
 
-  <!-- HEADER -->
-  <header>
-    <div>
-      <p class="label">Portfolio · 2026</p>
-      <h1><strong>Federico Reviati</strong></h1>
-      <p class="title-role">
-        <span class="i" data-l="it">Progettista Meccanico — Libero Professionista</span>
-        <span class="i" data-l="en" style="display:none">Mechanical Designer — Freelance</span>
+  <header style="padding:3.5rem 0 2.5rem;display:flex;flex-wrap:wrap;align-items:start;justify-content:space-between;gap:1.5rem 2rem;animation:fadeUp 0.7s ease both 0.05s;">
+    <div style="flex:1 1 320px;min-width:0;">
+      <h1 style="font-size:clamp(2.4rem,5.5vw,3.8rem);font-weight:300;line-height:1.08;letter-spacing:-0.025em;"><strong style="font-weight:500;">Federico Reviati</strong></h1>
+      <p style="margin-top:0.9rem;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:#B4B4B4;">
+        <span data-l="it">Progettista Meccanico — Libero Professionista</span>
+        <span data-l="en" style="display:none">Mechanical Designer — Freelance</span>
       </p>
     </div>
-  <div class="photo">
-    <img src="fotoprof.jpg" alt="Federico Reviati" 
-      style="width:100%; height:100%; object-fit:cover; display:block;">
-  </div>
+    <div style="width:108px;height:138px;flex-shrink:0;border:1px solid #2C2C2C;background:#1A1A1A;">
+      <img src="fotoprof.jpg" alt="Federico Reviati" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    </div>
   </header>
 
-  <!-- META BAR -->
-  <div class="meta-bar">
-    <div class="meta-item">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      Parma, Italia
-    </div>
-    <div class="meta-item">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l.95-.96a2 2 0 0 1 2.11-.45c.908.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span class="i" data-l="it">+39 346 394 1321</span>
-      <span class="i" data-l="en" style="display:none">+39 346 394 1321</span>
-    </div>
-
-    <div class="contact-list">
-      <a href="mailto:federico@reviati.com" class="contact-link">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        federico@reviati.com
-      </a>
-    </div>
-    <div class="meta-item">
-      <a href="https://www.linkedin.com/in/reviati" target="_blank" rel="noopener" class="contact-link">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        LinkedIn
-      </a>
-    </div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:0 1.5rem;padding:1rem 0;border-top:1px solid #2C2C2C;border-bottom:1px solid #2C2C2C;">
+    <span style="display:flex;align-items:center;gap:0.55rem;font-family:'IBM Plex Mono',monospace;font-size:0.67rem;letter-spacing:0.03em;color:#B4B4B4;padding:0.7rem 0;min-height:44px;">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="opacity:0.45"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      <span data-l="it">Parma, Italia</span>
+      <span data-l="en" style="display:none">Based in Parma, Italy</span>
+    </span>
+    <a href="tel:+393463941321" style="display:flex;align-items:center;gap:0.55rem;font-family:'IBM Plex Mono',monospace;font-size:0.67rem;letter-spacing:0.03em;color:#B4B4B4;text-decoration:none;padding:0.7rem 0;min-height:44px;" style-hover="color:#F0F0F0">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="opacity:0.45"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l.95-.96a2 2 0 0 1 2.11-.45c.908.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      +39 346 394 1321
+    </a>
+    <a href="mailto:federico@reviati.com" style="display:flex;align-items:center;gap:0.55rem;font-family:'IBM Plex Mono',monospace;font-size:0.67rem;letter-spacing:0.03em;color:#B4B4B4;text-decoration:none;padding:0.7rem 0;min-height:44px;" style-hover="color:#F0F0F0">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="opacity:0.45"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      federico@reviati.com
+    </a>
+    <a href="https://www.linkedin.com/in/reviati" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:0.55rem;font-family:'IBM Plex Mono',monospace;font-size:0.67rem;letter-spacing:0.03em;color:#B4B4B4;text-decoration:none;padding:0.7rem 0;min-height:44px;" style-hover="color:#F0F0F0">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="opacity:0.45"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+      LinkedIn
+    </a>
+    <a href="cv/cv-federico-reviati.pdf" download="download" style="display:flex;align-items:center;gap:0.55rem;font-family:'IBM Plex Mono',monospace;font-size:0.67rem;letter-spacing:0.03em;color:#B4B4B4;text-decoration:none;padding:0.7rem 0;min-height:44px;" style-hover="color:#F0F0F0">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="opacity:0.45"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      <span data-l="it">CV (PDF)</span>
+      <span data-l="en" style="display:none">CV (PDF)</span>
+    </a>
   </div>
 
-
-  <!-- MAIN GRID -->
-  <div class="main-grid">
-    <div class="col-main">
-
-      <section>
-        <p class="section-label">
-          <span class="i" data-l="it">Profilo</span>
-          <span class="i" data-l="en" style="display:none">Profile</span>
-        </p>
-        <p class="bio i" data-l="it">
-          Progetto macchine automatiche e componenti in plastica stampata da oltre quindici anni.
-          Specializzato in modellazione 3D parametrica di solidi e superfici, dal 2026 lavoro in proprio, 
-          collaborando con aziende e studi tecnici dalla fase di concept fino alla messa in tavola costruttiva.
-        </p>
-        <p class="bio i" data-l="en" style="display:none">
-          I design automated machinery and injection-moulded plastic components with over fifteen years of experience.
-          Specialised in parametric 3D modelling of solids and surfaces, I went freelance in 2026, 
-          supporting companies and technical studios from concept through to production drawings.
-        </p>
-      </section>
-
-      <section>
-        <p class="section-label">
-          <span class="i" data-l="it">Esperienze</span>
-          <span class="i" data-l="en" style="display:none">Experience</span>
-        </p>
-
-                <div class="exp-item">
-          <div class="exp-header">
-            <span class="exp-company i" data-l="it">Libero Professionista</span>
-            <span class="exp-company i" data-l="en" style="display:none">Self Employed</span>
-            <span class="exp-years">2026 -–> </span>
-          </div>
-          <p class="exp-role">
-            <span class="i" data-l="it">Progettista Meccanico Freelance</span>
-            <span class="i" data-l="en" style="display:none"> Freelance Mechanical Designer</span>
-          </p>
-          <p class="exp-desc i" data-l="it">
-            Da inizio 2026 opero come libero professionista, alcuni progetti recenti:
-          </p>
-          <div class="exp-desc i" data-l="it">
-            <ul>
-              <li>Collaborazione in corso nel settore automotive con un'azienda di Parma </li>
-              <li>Collaborazione con aziende del settore farmaceutico per progetti di industrializzazione e modularizzazione macchine</li>
-            </ul>
-          </div>
-          <p class="exp-desc i" data-l="en" style="display:none">
-            Since January 2026 I work as a freelance mechanical designer, some recent projects:
-          </p>
-          <div class="exp-desc i" data-l="en" style="display:none">
-            <ul>
-              <li>Ongoing collaboration in the automotive sector with a company based in Parma</li>
-              <li>Collaboration with companies in the pharmaceutical sector for machine industrialisation and modularisation projects</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="exp-item">
-          <div class="exp-header">
-            <span class="exp-company">Antares Vision spa</span>
-            <span class="exp-years">2016 – 2025</span>
-          </div>
-          <p class="exp-role">
-            <span class="i" data-l="it">Progettista Meccanico &amp; Project Leader</span>
-            <span class="i" data-l="en" style="display:none">Mechanical Designer &amp; Project Leader</span>
-          </p>
-          <p class="exp-desc i" data-l="it">
-            Nella mia esperienza in Antares Vision mi sono occupato, con responsabilità e autonomia sempre crescenti,
-            della progettazione di macchine di ispezione per il settore farmaceutico.
-            Durante gli anni ho avuto modo di partecipare agli sviluppi delle seguenti macchine:
-          </p>
-          <div class="exp-desc i" data-l="it">
-            <ul>
-              <li><strong>VRI</strong>: serie di macchine rotative continue per il controllo di vial/ampolle/BFS con differenti passi e velocità fino a 24000 p/h</li>
-              <li><strong>VI</strong>: macchina rotativa continua per il controllo di siringhe, sia standalone con carico e scarico manuale che con robot su nest, velocità fino a 24000 p/h</li>
-              <li><strong>LV</strong>: macchina rotativa per il controllo perdite tramite vuoto (leak test) su vials, ampolle e strip monodose</li>
-              <li><strong>TCI</strong>: macchina per il controllo di pastiglie e capsule, con velocità fino a 300000 p/h</li>
-            </ul>
-            <p style="margin-top:0.75rem;">Altri progetti:</p>
-            <ul>
-              <li>Design pinze di presa: conversione assieme pinza da acciaio AISI316 microfuso in tecnopolimero per lo stampaggio a iniezione</li>
-              <li>Carosello per l’ispezione cosmetica: progettazione di un sistema di rotazione controllata tramite camma, con sviluppo, ottimizzazione e collaborazione per la stesura del brevetto <em>WO2023007412A1</em></li>
-              <li>Key user per il progetto di switch tra i vecchi sistemi PDM al PLM Teamcenter per tutti gli utenti delle sedi che utilizzano Solid Edge. Ho lavorato sia alla fase di raccolta informazioni per l’import dei dati che alla fase di go-live con il training agli utenti finali.</li>
-            </ul>
-          </div>
-          <p class="exp-desc i" data-l="en" style="display:none">
-            Design of pharmaceutical machinery with increasing responsibilities up to Project Leader.
-            During my time there I contributed to the development of the following machines:
-          </p>
-          <div class="exp-desc i" data-l="en" style="display:none">
-            <ul>
-              <li><strong>VRI</strong>: continuous rotary machines for vial/ampoule/BFS inspection with different pitches and speeds up to 24,000 p/h</li>
-              <li><strong>VI</strong>: continuous rotary syringe inspection machines, both standalone with manual load/unload and robot-fed on nest, speeds up to 24,000 p/h</li>
-              <li><strong>LV</strong>: vacuum leak-testing rotary machine for vials, ampoules and single-dose strips</li>
-              <li><strong>TCI</strong>: tablet and capsule inspection machine, with speeds up to 300,000 p/h</li>
-            </ul>
-            <p style="margin-top:0.75rem;">Other projects:</p>
-            <ul>
-              <li>Redesigned grippers in technopolymer for injection moulding, replacing AISI316 microfusion steel assemblies to reduce cost and lead time</li>
-              <li>Designed a cam-driven cosmetic inspection carousel, including development, optimisation and collaboration for patent <em>WO2023007412A1</em></li>
-              <li>Key user for the PDM to PLM Teamcenter migration, involved in data gathering, import preparation and end-user training at go-live</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="exp-item">
-          <div class="exp-header">
-            <span class="exp-company">Spencer Italia srl</span>
-            <span class="exp-years">2010 – 2016</span>
-          </div>
-          <p class="exp-role">
-            <span class="i" data-l="it">Progettista Meccanico</span>
-            <span class="i" data-l="en" style="display:none">Mechanical Designer</span>
-          </p>
-          <p class="exp-desc i" data-l="it">
-            Sviluppo di dispositivi medicali ed elettromedicali con focus sulla modellazione di superfici per componenti stampati.
-            Responsabile di simulazioni FEM e testing sui prodotti finiti.
-          </p>
-          <p class="exp-desc i" data-l="en" style="display:none">
-            Development of medical and electro-medical devices with a focus on surface modelling for moulded components.
-            Responsible for FEM simulations and final product testing.
-          </p>
-        </div>
-
-        <div class="exp-item">
-          <div class="exp-header">
-            <span class="exp-company">STL Engineering</span>
-            <span class="exp-years">2008 – 2010</span>
-          </div>
-          <p class="exp-role">
-            <span class="i" data-l="it">Disegnatore Meccanico</span>
-            <span class="i" data-l="en" style="display:none">Mechanical Draughtsman</span>
-          </p>
-          <p class="exp-desc i" data-l="it">
-            Supporto tecnico presso clienti nella produzione di macchine automatiche per il settore alimentare e il riempimento farmaceutico.
-          </p>
-          <p class="exp-desc i" data-l="en" style="display:none">
-            Technical support at client sites producing automated machinery for food processing and pharmaceutical filling.
-          </p>
-        </div>
-
-        <div class="exp-item">
-          <div class="exp-header">
-            <span class="exp-company">Camattini Meccanica <span style="font-weight:300;font-size:0.85em">(Dallara Compositi)</span></span>
-            <span class="exp-years">2007 – 2008</span>
-          </div>
-          <p class="exp-role">
-            <span class="i" data-l="it">Operatore CNC &amp; Programmatore CAM</span>
-            <span class="i" data-l="en" style="display:none">CNC Operator &amp; CAM Programmer</span>
-          </p>
-          <p class="exp-desc i" data-l="it">
-            Lavorazioni CNC 5 assi su modelli in resina e telai in fibra di carbonio per automotive e difesa. Programmazione CAM 3 assi.
-          </p>
-          <p class="exp-desc i" data-l="en" style="display:none">
-            5-axis CNC machining on resin models and carbon-fibre frames for automotive and defence sectors. 3-axis CAM programming.
-          </p>
-        </div>
-
-      </section>
-    </div>
-
-    <!-- SIDE -->
-    <div class="col-side">
-
-      <div class="side-section">
-        <p class="section-label">
-          <span class="i" data-l="it">Settori principali</span>
-          <span class="i" data-l="en" style="display:none">Key Industries</span>
-        </p>
-        <div class="tag-list">
-          <span class="tag hi">Automotive</span>
-          <span class="tag hi i" data-l="it">Dispositivi Medicali</span>
-          <span class="tag hi i" data-l="en" style="display:none">Medical Devices</span>
-          <span class="tag hi i" data-l="it">Macchine Automatiche</span>
-          <span class="tag hi i" data-l="en" style="display:none">Automated Machinery</span>
-        </div>
-      </div>
-
-      <div class="side-section">
-        <p class="section-label">
-          <span class="i" data-l="it">Software CAD / PLM</span>
-          <span class="i" data-l="en" style="display:none">CAD / PLM Software</span>
-        </p>
-        <div class="tag-list">
-          <span class="tag hi">Solid Edge</span>
-          <span class="tag hi">SolidWorks</span>
-		  <span class="tag hi">TeamCenter PLM</span>
-		  <span class="tag">CATIA V5 (GSD)</span>
-          <span class="tag">AutoCAD</span>
-          <span class="tag">ME10</span>
-        </div>
-      </div>
-
-
-
-      <div class="side-section">
-        <p class="section-label">
-          <span class="i" data-l="it">Formazione</span>
-          <span class="i" data-l="en" style="display:none">Education</span>
-        </p>
-        <div class="info-line">
-          <span>
-            <span class="i" data-l="it">Perito Meccanico</span>
-            <span class="i" data-l="en" style="display:none">Mechanical Technician</span>
-          </span>
-          <span>77/100</span>
-        </div>
-        <div class="info-line">
-          <span style="font-size:0.68rem; color: var(--ink-4)">ITIS L. da Vinci, Parma</span>
-          <span></span>
-        </div>
-      </div>
-
-      <div class="side-section">
-        <p class="section-label">
-          <span class="i" data-l="it">Lingue</span>
-          <span class="i" data-l="en" style="display:none">Languages</span>
-        </p>
-        <div class="info-line">
-          <span class="i" data-l="it">Italiano</span>
-          <span class="i" data-l="en" style="display:none">Italian</span>
-          <span class="i" data-l="it">Madrelingua</span>
-          <span class="i" data-l="en" style="display:none">Native</span>
-        </div>
-        <div class="info-line">
-          <span class="i" data-l="it">Inglese</span>
-          <span class="i" data-l="en" style="display:none">English</span>
-          <span>B2</span>
-        </div>
-      </div>
-
-      <div class="side-section">
-        <p class="section-label">Projects</p>
-        <a href="projects/index_.html" class="sp-banner" style="text-decoration:none;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8">
-            <!-- chiave inglese stilizzata -->
-            <path d="M14.7 6.3a4 4 0 1 0 3 3l-3.2 3.2-2-2 3.2-3.2z"/>
-            <path d="M3 21l6.5-6.5"/>
-          </svg>
-          <div class="sp-text">
-            <strong>Projects</strong>
-            <span class="i" data-l="it">Progetti selezionati</span>
-            <span class="i" data-l="en" style="display:none">Selected projects</span>
-          </div>
-        </a>
-
-        <p class="section-label">Tools</p>
-        <a href="tools/index.html" class="sp-banner" style="text-decoration:none;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8">
-            <!-- bullone stilizzato -->
-            <polygon points="12 2 17 5 17 11 12 14 7 11 7 5"/>
-            <circle cx="12" cy="8" r="2"/>
-          </svg>
-          <div class="sp-text">
-            <strong>Tools</strong>
-            <span class="i" data-l="it">Strumenti di calcolo</span>
-            <span class="i" data-l="en" style="display:none">Calculation tools</span>
-          </div>
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- CONTACT FORM -->
-  <section class="contact-section" id="contact">
-    <p class="section-label">
-      <span class="i" data-l="it">Contattami</span>
-      <span class="i" data-l="en" style="display:none">Get in touch</span>
+  <section style="padding:2.5rem 0;border-bottom:1px solid #2C2C2C;animation:fadeUp 0.7s ease both 0.15s;">
+    <p style="font-size:1.05rem;line-height:1.85;color:#CCCCCC;text-wrap:pretty;" data-l="it">
+      Progetto macchine automatiche e componenti in plastica stampata da oltre quindici anni.
+      Specializzato in modellazione 3D parametrica di solidi e superfici, dal 2026 lavoro in proprio,
+      collaborando con aziende e studi tecnici dalla fase di concept fino alla messa in tavola costruttiva.
     </p>
-    <form class="contact-form" id="contactForm" novalidate>
+    <p style="font-size:1.05rem;line-height:1.85;color:#CCCCCC;text-wrap:pretty;display:none" data-l="en">
+      I design automated machinery and injection-moulded plastic components with over fifteen years of experience.
+      Specialised in parametric 3D modelling of solids and surfaces, I went freelance in 2026,
+      supporting companies and technical studios from concept through to production drawings.
+    </p>
+  </section>
+
+  <nav style="padding:2.5rem 0 3rem;animation:fadeUp 0.7s ease both 0.25s;">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#B4B4B4;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.75rem;">
+      <span data-l="it">Aree di lavoro</span>
+      <span data-l="en" style="display:none">Areas of work</span>
+      <span style="flex:1;height:1px;background:#2C2C2C;"></span>
+    </p>
+    <div style="display:flex;flex-direction:column;border-top:1px solid #2C2C2C;">
+      <a href="#macchine" style="display:grid;grid-template-columns:3rem 1fr auto;align-items:center;gap:1.25rem;padding:1.15rem 0.6rem;border-bottom:1px solid #2C2C2C;text-decoration:none;color:#F0F0F0;" style-hover="background:#1A1A1A">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:#8A8A8A;">01</span>
+        <span style="font-size:1.05rem;font-weight:400;">
+          <span data-l="it">Progettazione macchine automatiche</span>
+          <span data-l="en" style="display:none">Automated machinery design</span>
+        </span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:#B4B4B4;">→</span>
+      </a>
+      <a href="#stampati" style="display:grid;grid-template-columns:3rem 1fr auto;align-items:center;gap:1.25rem;padding:1.15rem 0.6rem;border-bottom:1px solid #2C2C2C;text-decoration:none;color:#F0F0F0;" style-hover="background:#1A1A1A">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:#8A8A8A;">02</span>
+        <span style="font-size:1.05rem;font-weight:400;">
+          <span data-l="it">Progettazione componenti stampati</span>
+          <span data-l="en" style="display:none">Moulded component design</span>
+        </span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:#B4B4B4;">→</span>
+      </a>
+      <a href="#superfici" style="display:grid;grid-template-columns:3rem 1fr auto;align-items:center;gap:1.25rem;padding:1.15rem 0.6rem;border-bottom:1px solid #2C2C2C;text-decoration:none;color:#F0F0F0;" style-hover="background:#1A1A1A">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:#8A8A8A;">03</span>
+        <span style="font-size:1.05rem;font-weight:400;">
+          <span data-l="it">Modellazione superfici</span>
+          <span data-l="en" style="display:none">Surface modelling</span>
+        </span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:#B4B4B4;">→</span>
+      </a>
+      <a href="#industrializzazione" style="display:grid;grid-template-columns:3rem 1fr auto;align-items:center;gap:1.25rem;padding:1.15rem 0.6rem;border-bottom:1px solid #2C2C2C;text-decoration:none;color:#F0F0F0;" style-hover="background:#1A1A1A">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:#8A8A8A;">04</span>
+        <span style="font-size:1.05rem;font-weight:400;">
+          <span data-l="it">Industrializzazione componenti</span>
+          <span data-l="en" style="display:none">Component industrialisation</span>
+        </span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:#B4B4B4;">→</span>
+      </a>
+    </div>
+  </nav>
+
+  <section id="macchine" style="padding:clamp(2.25rem,6vw,3rem) 0;border-top:1px solid #2C2C2C;scroll-margin-top:1rem;">
+    <div style="display:flex;flex-wrap:wrap;gap:2.25rem 3rem;align-items:start;">
+      <div style="flex:1 1 340px;min-width:0;">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#8A8A8A;margin-bottom:0.75rem;">01</p>
+        <h2 style="font-size:1.6rem;font-weight:400;line-height:1.2;letter-spacing:-0.015em;margin-bottom:1.1rem;">
+          <span data-l="it">Progettazione macchine automatiche</span>
+          <span data-l="en" style="display:none">Automated machinery design</span>
+        </h2>
+        <p style="font-size:0.95rem;line-height:1.85;color:#CCCCCC;text-wrap:pretty;" data-l="it">
+          Progettazione meccanica di macchine automatiche, principalmente per i settori pharma e alimentare: 
+          specializzato in macchine rotative continue, sistemi di trasporto e movimentazione, con soluzioni 
+          di selezione e handling tramite pneumatica e vuoto. Mi occupo di messa in tavola costruttiva, 
+          verifica di cinematismi, interferenze e accessibilità per la manutenzione.
+        </p>
+        <p style="font-size:0.95rem;line-height:1.85;color:#CCCCCC;text-wrap:pretty;display:none" data-l="en">
+          Mechanical design of automated machinery, mainly for the pharmaceutical and food sectors: specialised in
+          continuous rotary machines, transport and handling systems, with selection and handling solutions using
+          pneumatics and vacuum. I produce production drawings, check kinematics, interference and maintenance access.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1.4rem;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">Solid Edge</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">Teamcenter</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">SolidWorks</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">CREO Parametric</span>
+        </div>
+      </div>
+      <div style="flex:1 1 260px;border:1px solid #2C2C2C;background:#1A1A1A;aspect-ratio:4/3;overflow:hidden;">
+        <img src="img/macchina-rotativa.jpg" alt="Macchina rotativa continua" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </div>
+  </section>
+
+  <section id="stampati" style="padding:clamp(2.25rem,6vw,3rem) 0;border-top:1px solid #2C2C2C;scroll-margin-top:1rem;">
+    <div style="display:flex;flex-wrap:wrap;gap:2.25rem 3rem;align-items:start;">
+      <div style="flex:1 1 340px;min-width:0;">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#8A8A8A;margin-bottom:0.75rem;">02</p>
+        <h2 style="font-size:1.6rem;font-weight:400;line-height:1.2;letter-spacing:-0.015em;margin-bottom:1.1rem;">
+          <span data-l="it">Progettazione componenti stampati</span>
+          <span data-l="en" style="display:none">Moulded component design</span>
+        </h2>
+        <p style="font-size:0.95rem;line-height:1.85;color:#CCCCCC;text-wrap:pretty;" data-l="it">
+          Progettazione di componenti in materiale plastico per stampaggio a iniezione, termoformatura, rotoformatura e 
+          blow-moulding: definizione di materiali, spessori, sformi, linee di giunzione e sottosquadri in funzione dello stampo.
+          Interfaccia con i fornitori di stampi per la verifica e l'ottimizzazione della fattibilità del componente.
+        </p>
+        <p style="font-size:0.95rem;line-height:1.85;color:#CCCCCC;text-wrap:pretty;display:none" data-l="en">
+          Design of plastic components for injection moulding, thermoforming, rotational moulding and blow-moulding:
+          definition of materials, thicknesses, draft angles, weld lines and undercuts according to the mould.
+          Interface with mould suppliers to check and optimise component manufacturability.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1.4rem;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">Automotive</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;" data-l="it">Dispositivi medici</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;display:none" data-l="en">Medical devices</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">SolidWorks</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">CREO Parametric</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">Catia V5</span>
+        </div>
+      </div>
+      <div style="flex:1 1 260px;border:1px solid #2C2C2C;background:#1A1A1A;aspect-ratio:4/3;overflow:hidden;">
+        <img src="img/cover.jpg" alt="Macchina rotativa continua" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </div>
+  </section>
+
+  <section id="superfici" style="padding:clamp(2.25rem,6vw,3rem) 0;border-top:1px solid #2C2C2C;scroll-margin-top:1rem;">
+    <div style="display:flex;flex-wrap:wrap;gap:2.25rem 3rem;align-items:start;">
+      <div style="flex:1 1 340px;min-width:0;">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#8A8A8A;margin-bottom:0.75rem;">03</p>
+        <h2 style="font-size:1.6rem;font-weight:400;line-height:1.2;letter-spacing:-0.015em;margin-bottom:1.1rem;">
+          <span data-l="it">Modellazione superfici</span>
+          <span data-l="en" style="display:none">Surface modelling</span>
+        </h2>
+        <p style="font-size:0.95rem;line-height:1.85;color:#CCCCCC;text-wrap:pretty;" data-l="it">
+          Modellazione 3D parametrica di superfici per dispositivi medicali e automotive.
+          Costruzione di superfici raccordate con controllo della continuità.
+        </p>
+        <p style="font-size:0.95rem;line-height:1.85;color:#CCCCCC;text-wrap:pretty;display:none" data-l="en">
+          Parametric 3D modelling of surfaces for medical devices and automotive.
+          Blended surfaces built with continuity control.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1.4rem;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">SolidWorks</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">CREO Parametric</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">CATIA V5 (GSD)</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;">Reverse engineering</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;" data-l="it">Continuità G0 / G1 / G2</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;display:none" data-l="en">G0 / G1 / G2 continuity</span>
+        </div>
+      </div>
+      <div style="flex:1 1 260px;border:1px solid #2C2C2C;background:#1A1A1A;aspect-ratio:4/3;overflow:hidden;">
+        <img src="img/zebra.jpg" alt="Macchina rotativa continua" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </div>
+  </section>
+
+  <section id="industrializzazione" style="padding:clamp(2.25rem,6vw,3rem) 0;border-top:1px solid #2C2C2C;scroll-margin-top:1rem;">
+    <div style="display:flex;flex-wrap:wrap;gap:2.25rem 3rem;align-items:start;">
+      <div style="flex:1 1 340px;min-width:0;">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#8A8A8A;margin-bottom:0.75rem;">04</p>
+        <h2 style="font-size:1.6rem;font-weight:400;line-height:1.2;letter-spacing:-0.015em;margin-bottom:1.1rem;">
+          <span data-l="it">Industrializzazione componenti</span>
+          <span data-l="en" style="display:none">Component industrialisation</span>
+        </h2>
+        <p style="font-size:0.95rem;line-height:1.85;color:#CCCCCC;text-wrap:pretty;" data-l="it">
+          Revisione di componenti e assiemi esistenti per la produzione in serie: ottimizzazione della progettazione 
+          in funzione delle lavorazioni, scelta di materiali e trattamenti. Riprogettazione di componenti per 
+          stampaggio a iniezione o per stampa 3D, inclusa la conversione di assiemi metallici in tecnopolimero
+          per ridurre costi e tempi di consegna.
+        </p>
+        <p style="font-size:0.95rem;line-height:1.85;color:#CCCCCC;text-wrap:pretty;display:none" data-l="en">
+          Review of existing components and assemblies for series production: optimisation of the design according to
+          the manufacturing processes, choice of materials and treatments. Redesign of components for injection moulding
+          or 3D printing, including conversion of metal assemblies into technical polymers to reduce costs and delivery times.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1.4rem;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;" data-l="it">Standardizzazione</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;display:none" data-l="en">Standardisation</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;" data-l="it">Riduzione costi</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;display:none" data-l="en">Cost reduction</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;" data-l="it">Cicli di lavorazione</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;flex:0 0 auto;white-space:nowrap;padding:0.28rem 0.55rem;border:1px solid #2C2C2C;background:#242424;color:#B4B4B4;display:none" data-l="en">Process cycles</span>
+        </div>
+      </div>
+      <div style="flex:1 1 260px;border:1px solid #2C2C2C;background:#1A1A1A;aspect-ratio:4/3;overflow:hidden;">
+        <img src="img/industrializz.jpg" alt="Macchina rotativa continua" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="padding:3rem 0;border-top:1px solid #2C2C2C;">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#B4B4B4;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.75rem;">
+      <span data-l="it">Contattami</span>
+      <span data-l="en" style="display:none">Get in touch</span>
+      <span style="flex:1;height:1px;background:#2C2C2C;"></span>
+    </p>
+    <form id="contactForm" novalidate="novalidate" style="max-width:640px;">
       <input type="hidden" name="access_key" value="263404bc-3ff2-4ebc-96ac-a6df86138562">
       <input type="hidden" name="subject" value="Nuovo messaggio dal sito - Federico Reviati">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label i" data-l="it" for="cf-name">Nome</label>
-          <label class="form-label i" data-l="en" style="display:none" for="cf-name">Name</label>
-          <input type="text" id="cf-name" name="name" class="form-input" required>
+      <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+        <div style="flex:1 1 220px;margin-bottom:1.1rem;display:flex;flex-direction:column;gap:0.4rem;">
+          <label for="cf-name" style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:#B4B4B4;" data-l="it">Nome</label>
+          <label for="cf-name" style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:#B4B4B4;display:none" data-l="en">Name</label>
+          <input type="text" id="cf-name" name="name" required="required" style="font-family:'IBM Plex Sans',sans-serif;font-size:0.85rem;font-weight:300;color:#F0F0F0;background:#1A1A1A;border:1px solid #2C2C2C;padding:0.75rem;min-height:46px;outline:none;" style-focus="border-color:#B4B4B4">
         </div>
-        <div class="form-group">
-          <label class="form-label" for="cf-email">Email</label>
-          <input type="email" id="cf-email" name="email" class="form-input" required>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label i" data-l="it" for="cf-phone">Telefono <span class="form-optional">(facoltativo)</span></label>
-          <label class="form-label i" data-l="en" style="display:none" for="cf-phone">Phone <span class="form-optional">(optional)</span></label>
-          <input type="tel" id="cf-phone" name="phone" class="form-input">
-        </div>
-        <div class="form-group">
-          <label class="form-label i" data-l="it" for="cf-company">Azienda <span class="form-optional">(facoltativo)</span></label>
-          <label class="form-label i" data-l="en" style="display:none" for="cf-company">Company <span class="form-optional">(optional)</span></label>
-          <input type="text" id="cf-company" name="company" class="form-input">
+        <div style="flex:1 1 220px;margin-bottom:1.1rem;display:flex;flex-direction:column;gap:0.4rem;">
+          <label for="cf-email" style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:#B4B4B4;">Email</label>
+          <input type="email" id="cf-email" name="email" required="required" style="font-family:'IBM Plex Sans',sans-serif;font-size:0.85rem;font-weight:300;color:#F0F0F0;background:#1A1A1A;border:1px solid #2C2C2C;padding:0.75rem;min-height:46px;outline:none;" style-focus="border-color:#B4B4B4">
         </div>
       </div>
-
-      <div class="form-group">
-        <label class="form-label i" data-l="it" for="cf-message">Messaggio</label>
-        <label class="form-label i" data-l="en" style="display:none" for="cf-message">Message</label>
-        <textarea id="cf-message" name="message" class="form-textarea" rows="5" required></textarea>
+      <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+        <div style="flex:1 1 220px;margin-bottom:1.1rem;display:flex;flex-direction:column;gap:0.4rem;">
+          <label for="cf-phone" style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:#B4B4B4;" data-l="it">Telefono <span style="text-transform:none;letter-spacing:0;color:#8A8A8A;">(facoltativo)</span></label>
+          <label for="cf-phone" style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:#B4B4B4;display:none" data-l="en">Phone <span style="text-transform:none;letter-spacing:0;color:#8A8A8A;">(optional)</span></label>
+          <input type="tel" id="cf-phone" name="phone" style="font-family:'IBM Plex Sans',sans-serif;font-size:0.85rem;font-weight:300;color:#F0F0F0;background:#1A1A1A;border:1px solid #2C2C2C;padding:0.75rem;min-height:46px;outline:none;" style-focus="border-color:#B4B4B4">
+        </div>
+        <div style="flex:1 1 220px;margin-bottom:1.1rem;display:flex;flex-direction:column;gap:0.4rem;">
+          <label for="cf-company" style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:#B4B4B4;" data-l="it">Azienda <span style="text-transform:none;letter-spacing:0;color:#8A8A8A;">(facoltativo)</span></label>
+          <label for="cf-company" style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:#B4B4B4;display:none" data-l="en">Company <span style="text-transform:none;letter-spacing:0;color:#8A8A8A;">(optional)</span></label>
+          <input type="text" id="cf-company" name="company" style="font-family:'IBM Plex Sans',sans-serif;font-size:0.85rem;font-weight:300;color:#F0F0F0;background:#1A1A1A;border:1px solid #2C2C2C;padding:0.75rem;min-height:46px;outline:none;" style-focus="border-color:#B4B4B4">
+        </div>
       </div>
-
-      <div class="form-footer">
-        <button type="submit" class="form-submit" id="cf-submit">
-          <span class="i" data-l="it">Invia messaggio</span>
-          <span class="i" data-l="en" style="display:none">Send message</span>
+      <div style="display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.1rem;">
+        <label for="cf-message" style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:#B4B4B4;" data-l="it">Messaggio</label>
+        <label for="cf-message" style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:#B4B4B4;display:none" data-l="en">Message</label>
+        <textarea id="cf-message" name="message" rows="5" required="required" style="font-family:'IBM Plex Sans',sans-serif;font-size:0.85rem;font-weight:300;color:#F0F0F0;background:#1A1A1A;border:1px solid #2C2C2C;padding:0.75rem;min-height:46px;outline:none;resize:vertical;" style-focus="border-color:#B4B4B4"></textarea>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;margin-top:0.5rem;">
+        <button type="submit" id="cf-submit" style="font-family:'IBM Plex Mono',monospace;font-size:0.64rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.9rem 1.4rem;min-height:46px;border:1px solid #F0F0F0;background:#F0F0F0;color:#121212;cursor:pointer;" style-hover="opacity:0.85">
+          <span data-l="it">Invia messaggio</span>
+          <span data-l="en" style="display:none">Send message</span>
         </button>
-        <p class="form-status" id="cf-status"></p>
+        <p id="cf-status" style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:#B4B4B4;"></p>
       </div>
     </form>
   </section>
 
-  <footer>
-    <span class="footer-copy">© 2026 Federico Reviati</span>
-    <span class="footer-copy">
-      <a href="privacy.html" style="color:inherit; text-decoration:underline;">
-        <span class="i" data-l="it">Privacy Policy</span>
-        <span class="i" data-l="en" style="display:none">Privacy Policy</span>
-      </a>
-      · <button id="cookieSettingsBtn" style="background:none; border:none; color:inherit; font:inherit; text-decoration:underline; cursor:pointer; padding:0;">
-        <span class="i" data-l="it">Preferenze cookie</span>
-        <span class="i" data-l="en" style="display:none">Cookie preferences</span>
+  <footer style="padding:1.5rem 0 3rem;border-top:1px solid #2C2C2C;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:#8A8A8A;text-transform:uppercase;">© 2026 Federico Reviati</span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:#8A8A8A;text-transform:uppercase;display:flex;gap:0.5rem;align-items:center;">
+      <a href="privacy.html" style="color:inherit;text-decoration:underline;padding:0.65rem 0;display:inline-block;">Privacy Policy</a>
+      <span>·</span>
+      <button id="cookieSettingsBtn" style="background:none;border:none;color:inherit;font:inherit;text-decoration:underline;cursor:pointer;padding:0.65rem 0;">
+        <span data-l="it">Preferenze cookie</span>
+        <span data-l="en" style="display:none">Cookie preferences</span>
       </button>
     </span>
   </footer>
+</div>
 
-  <!-- COOKIE BANNER -->
-  <div class="cookie-banner" id="cookieBanner">
-    <p class="cookie-text">
-      <span class="i" data-l="it">Questo sito utilizza cookie tecnici e, previo consenso, cookie di analisi (Google Analytics) e di misurazione per la pubblicità (Google Ads). Puoi accettarli tutti o continuare solo con i cookie necessari. Maggiori informazioni nella <a href="privacy.html">Privacy Policy</a>.</span>
-      <span class="i" data-l="en" style="display:none">This site uses technical cookies and, subject to consent, analytics (Google Analytics) and advertising measurement (Google Ads) cookies. You can accept all or continue with necessary cookies only. More details in the <a href="privacy.html">Privacy Policy</a>.</span>
-    </p>
-    <div class="cookie-actions">
-      <button class="cookie-btn" id="cookieRejectBtn">
-        <span class="i" data-l="it">Solo necessari</span>
-        <span class="i" data-l="en" style="display:none">Necessary only</span>
-      </button>
-      <button class="cookie-btn primary" id="cookieAcceptBtn">
-        <span class="i" data-l="it">Accetta tutti</span>
-        <span class="i" data-l="en" style="display:none">Accept all</span>
-      </button>
-    </div>
+<div id="cookieBanner" style="position:fixed;left:0;right:0;bottom:0;z-index:999;background:#1A1A1A;border-top:1px solid #2C2C2C;padding:1.1rem clamp(1.25rem,5vw,2rem);display:none;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;box-shadow:0 -2px 16px rgba(0,0,0,0.5);">
+  <p style="font-size:0.78rem;color:#CCCCCC;max-width:560px;line-height:1.5;">
+    <span data-l="it">Questo sito utilizza cookie tecnici e, previo consenso, cookie di analisi (Google Analytics) e di misurazione per la pubblicità (Google Ads). Puoi accettarli tutti o continuare solo con i cookie necessari. Maggiori informazioni nella <a href="privacy.html" style="color:#F0F0F0;">Privacy Policy</a>.</span>
+    <span data-l="en" style="display:none">This site uses technical cookies and, subject to consent, analytics (Google Analytics) and advertising measurement (Google Ads) cookies. You can accept all or continue with necessary cookies only. More details in the <a href="privacy.html" style="color:#F0F0F0;">Privacy Policy</a>.</span>
+  </p>
+  <div style="display:flex;gap:0.6rem;flex-shrink:0;">
+    <button id="cookieRejectBtn" style="font-family:'IBM Plex Mono',monospace;font-size:0.64rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.85rem 1.1rem;min-height:46px;border:1px solid #2C2C2C;background:none;color:#CCCCCC;cursor:pointer;" style-hover="background:#242424">
+      <span data-l="it">Solo necessari</span>
+      <span data-l="en" style="display:none">Necessary only</span>
+    </button>
+    <button id="cookieAcceptBtn" style="font-family:'IBM Plex Mono',monospace;font-size:0.64rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.85rem 1.1rem;min-height:46px;border:1px solid #F0F0F0;background:#F0F0F0;color:#121212;cursor:pointer;" style-hover="opacity:0.85">
+      <span data-l="it">Accetta tutti</span>
+      <span data-l="en" style="display:none">Accept all</span>
+    </button>
   </div>
-
 </div>
 
 <script>
-  // Language
+(function () {
+  // localStorage can throw (private browsing, sandboxed/data: contexts, etc.) — never let that break the page
+  function safeGet(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+  function safeSet(key, val) { try { localStorage.setItem(key, val); } catch (e) {} }
+
+  // ── Language switch ──
   function setLang(lang) {
-    document.querySelectorAll('.i[data-l]').forEach(el => {
-      el.style.display = el.dataset.l === lang ? '' : 'none';
+    document.querySelectorAll('[data-l]').forEach(function (el) {
+      el.style.display = el.getAttribute('data-l') === lang ? '' : 'none';
     });
-    document.getElementById('btn-it').classList.toggle('active', lang === 'it');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.querySelectorAll('[data-lang-btn]').forEach(function (b) {
+      var active = b.getAttribute('data-lang-btn') === lang;
+      b.style.background = active ? '#F0F0F0' : 'transparent';
+      b.style.color = active ? '#121212' : '#B4B4B4';
+    });
     document.documentElement.lang = lang;
-    localStorage.setItem('lang', lang);
+    safeSet('lang', lang);
   }
 
-  // Theme
-  function toggleTheme() {
-    const html = document.documentElement;
-    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-  }
+  document.querySelectorAll('[data-lang-btn]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      setLang(b.getAttribute('data-lang-btn'));
+    });
+  });
 
-  // Restore preferences
-  (function() {
-    const t = localStorage.getItem('theme');
-    if (t) document.documentElement.setAttribute('data-theme', t);
-    const l = localStorage.getItem('lang');
-    if (l && l !== 'it') setLang(l);
-  })();
+  var savedLang = safeGet('lang');
+  if (savedLang === 'en') setLang('en');
 
   // ── Cookie consent ──
-  const CONSENT_KEY = 'cookie_consent'; // 'granted' | 'denied'
-  const banner = document.getElementById('cookieBanner');
+  var CONSENT_KEY = 'cookie_consent';
+  var banner = document.getElementById('cookieBanner');
 
   function applyConsent(choice) {
+    if (typeof gtag !== 'function') return;
     if (choice === 'granted') {
       gtag('consent', 'update', {
-        'ad_storage': 'granted',
-        'ad_user_data': 'granted',
-        'ad_personalization': 'granted',
-        'analytics_storage': 'granted'
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted'
       });
     } else {
       gtag('consent', 'update', {
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied',
-        'analytics_storage': 'denied'
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied'
       });
     }
   }
 
-  function showBanner() {
-    banner.classList.add('show');
-  }
-  function hideBanner() {
-    banner.classList.remove('show');
-  }
+  function showBanner() { banner.style.display = 'flex'; }
+  function hideBanner() { banner.style.display = 'none'; }
 
   (function initConsent() {
-    const params = new URLSearchParams(window.location.search);
-    const forceOpen = params.get('cookie-settings') === '1';
-
-    const stored = localStorage.getItem(CONSENT_KEY);
+    var params = new URLSearchParams(window.location.search);
+    var forceOpen = params.get('cookie-settings') === '1';
+    var stored = safeGet(CONSENT_KEY);
     if (stored && !forceOpen) {
       applyConsent(stored);
     } else {
@@ -1135,84 +393,83 @@
     }
   })();
 
-  document.getElementById('cookieAcceptBtn').addEventListener('click', function() {
-    localStorage.setItem(CONSENT_KEY, 'granted');
+  document.getElementById('cookieAcceptBtn').addEventListener('click', function () {
+    safeSet(CONSENT_KEY, 'granted');
     applyConsent('granted');
     hideBanner();
   });
 
-  document.getElementById('cookieRejectBtn').addEventListener('click', function() {
-    localStorage.setItem(CONSENT_KEY, 'denied');
+  document.getElementById('cookieRejectBtn').addEventListener('click', function () {
+    safeSet(CONSENT_KEY, 'denied');
     applyConsent('denied');
     hideBanner();
   });
 
-  document.getElementById('cookieSettingsBtn').addEventListener('click', function() {
+  document.getElementById('cookieSettingsBtn').addEventListener('click', function () {
     showBanner();
   });
 
   // ── Contact form (Web3Forms) ──
-  (function() {
-    const form = document.getElementById('contactForm');
-    const status = document.getElementById('cf-status');
-    const btn = document.getElementById('cf-submit');
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('cf-status');
+  var submitBtn = document.getElementById('cf-submit');
 
-    const MSG = {
-      sending: { it: 'Invio in corso…', en: 'Sending…' },
-      ok:      { it: 'Messaggio inviato, grazie! Ti risponderò al più presto.', en: 'Message sent, thank you! I will reply as soon as possible.' },
-      err:     { it: 'Si è verificato un errore. Riprova oppure scrivimi a federico@reviati.com.', en: 'Something went wrong. Please retry or email me at federico@reviati.com.' },
-      invalid: { it: 'Compila i campi obbligatori (nome, email, messaggio) prima di inviare.', en: 'Please fill in the required fields (name, email, message) before sending.' }
-    };
+  var MSG = {
+    sending: { it: 'Invio in corso…', en: 'Sending…' },
+    ok:      { it: 'Messaggio inviato, grazie! Ti risponderò al più presto.', en: 'Message sent, thank you! I will reply as soon as possible.' },
+    err:     { it: 'Si è verificato un errore. Riprova oppure scrivimi a federico@reviati.com.', en: 'Something went wrong. Please retry or email me at federico@reviati.com.' },
+    invalid: { it: 'Compila i campi obbligatori (nome, email, messaggio) prima di inviare.', en: 'Please fill in the required fields (name, email, message) before sending.' }
+  };
 
-    function currentLang() {
-      return document.documentElement.lang === 'en' ? 'en' : 'it';
+  function currentLang() {
+    return document.documentElement.lang === 'en' ? 'en' : 'it';
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var lang = currentLang();
+
+    var nameVal = form.elements['name'].value.trim();
+    var emailVal = form.elements['email'].value.trim();
+    var messageVal = form.elements['message'].value.trim();
+
+    if (!form.checkValidity() || !nameVal || !emailVal || !messageVal) {
+      form.reportValidity();
+      status.style.color = '#E0655C';
+      status.textContent = MSG.invalid[lang];
+      return;
     }
 
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const lang = currentLang();
+    submitBtn.disabled = true;
+    status.style.color = '#B4B4B4';
+    status.textContent = MSG.sending[lang];
 
-      const nameVal = form.elements['name'].value.trim();
-      const emailVal = form.elements['email'].value.trim();
-      const messageVal = form.elements['message'].value.trim();
+    try {
+      var res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+      });
+      var data = await res.json();
 
-      if (!form.checkValidity() || !nameVal || !emailVal || !messageVal) {
-        form.reportValidity();
-        status.className = 'form-status err';
-        status.textContent = MSG.invalid[lang];
-        return;
-      }
-
-      btn.disabled = true;
-      status.className = 'form-status';
-      status.textContent = MSG.sending[lang];
-
-      try {
-        const res = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(form)))
-        });
-        const data = await res.json();
-
-        if (data.success) {
-          status.classList.add('ok');
-          status.textContent = MSG.ok[lang];
-          form.reset();
-          if (typeof gtag === 'function') {
-            gtag('event', 'generate_lead', { event_category: 'contact_form' });
-          }
-        } else {
-          throw new Error(data.message || 'submit failed');
+      if (data.success) {
+        status.style.color = '#5AAF73';
+        status.textContent = MSG.ok[lang];
+        form.reset();
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', { event_category: 'contact_form' });
         }
-      } catch (err) {
-        status.classList.add('err');
-        status.textContent = MSG.err[lang];
-      } finally {
-        btn.disabled = false;
+      } else {
+        throw new Error(data.message || 'submit failed');
       }
-    });
-  })();
+    } catch (err) {
+      status.style.color = '#E0655C';
+      status.textContent = MSG.err[lang];
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+})();
 </script>
 </body>
 </html>
